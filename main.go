@@ -1,9 +1,9 @@
 package main
 
 import (
-	"GolangNorhtwindRestApi/database"
-	"fmt"
-
+	"github.com/GolangNorhtwindRestApi/database"
+	"github.com/GolangNorhtwindRestApi/product"
+	"github.com/go-chi/chi/v5"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -11,5 +11,11 @@ func main() {
 	databaseConnection := database.InitDB()
 	defer databaseConnection.Close()
 
-	fmt.Println(databaseConnection)
+	var productRepository = product.NewRepository(databaseConnection)
+	var productService product.Service
+
+	productService = product.NewService(productRepository)
+	r := chi.NewRouter()
+	r.Mount("/products", product.MakeHttpHandler(productService))
+	http.ListenAndServe(":3000", r)
 }

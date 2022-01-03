@@ -1,0 +1,9 @@
+GET localhost:3000/products/1
+GET localhost:3000/products?limit:10&offset:10
+DELETE localhost:3000/products/1
+POST localhost:3000/products
+
+POST localhost:3000/empleados
+
+go get -u github.com/go-chi/chi/v5
+go get -u github.com/go-kit/kit

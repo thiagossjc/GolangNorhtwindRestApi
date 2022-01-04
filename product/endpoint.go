@@ -1,15 +1,19 @@
 package product
 
-import "github.com/go-kit/kit/endpoint"
+import (
+	"context"
+
+	"github.com/go-kit/kit/endpoint"
+)
 
 type getProductBYIDRequest struct {
 	ProdutoID int
 }
 
-func MakeGetProductByIdEndPoint(s ServiceS) endpoint.Endpoint {
+func MakeGetProductByIdEndPoint(s Service) endpoint.Endpoint {
 	getProductByIdEndpoint := func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(getProductBYIDRequest)
-		product, err := s.GetProductById(&req)
+		product, err := s.GetProductoById(&req)
 		if err != nil {
 			panic(err)
 		}

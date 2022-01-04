@@ -1,8 +1,11 @@
 package main
 
 import (
+	"net/http"
+
 	"github.com/GolangNorhtwindRestApi/database"
 	"github.com/GolangNorhtwindRestApi/product"
+
 	"github.com/go-chi/chi/v5"
 	_ "github.com/go-sql-driver/mysql"
 )

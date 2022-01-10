@@ -12,3 +12,28 @@ go get -u github.com/go-kit/kit
 git add
 git commit -m "mensage"
 git push
+
+
+POST http://localhost/products/paginated
+
+request:
+
+{
+    "limit": 10,
+    "offset": 0
+}
+
+response:
+{
+    "data":[
+        {
+            "id":1,
+            "productCode":"XXX",
+            "productName":"XXX",
+            "description":"XXX",
+            "standardCost":10.9,
+            "category":"XXX"
+        }
+    ]
+    "totalRecords":100
+}

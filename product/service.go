@@ -2,6 +2,7 @@ package product
 
 type Service interface {
 	GetProductoById(param *getProductBYIDRequest) (*Product, error)
+	GetProducts(params *getProductsRequest) (*ProductList, error)
 }
 
 type service struct {
@@ -17,4 +18,16 @@ func NewService(repo Repository) Service {
 func (s *service) GetProductoById(param *getProductBYIDRequest) (*Product, error) {
 	//Business logica
 	return s.repo.GetProductoById(param.ProdutoID)
+}
+
+func (s *service) GetProducts(params *getProductsRequest) (*ProductList, error) {
+	products, err := s.repo.GetProducts(params)
+	if err != nil {
+		panic(err)
+	}
+	totalProducts, err := s.repo.GetTotalProducts()
+	if err != nil {
+		panic(err)
+	}
+	return &ProductList{Data: products, TotalRecords: totalProducts}, nil
 }

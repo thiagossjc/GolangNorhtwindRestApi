@@ -37,3 +37,20 @@ response:
     ]
     "totalRecords":100
 }
+
+POST http://localhost/products
+
+request:{
+    "category": "XXX",
+    "description": "XXX",
+    "listPrice": "123",
+    "standardCost": "23",
+    "productCode": "XXX",
+    "productName": "XXX",
+    
+}
+response{
+    {
+        <prodct_Id>
+    }
+}

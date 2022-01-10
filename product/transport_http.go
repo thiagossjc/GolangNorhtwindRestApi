@@ -12,14 +12,22 @@ import (
 )
 
 func MakeHttpHandler(s Service) http.Handler {
+	//ConsultaporId de Produto
 	r := chi.NewRouter()
 	getProductBYIDHandler := kitHttp.NewServer(MakeGetProductByIdEndPoint(s),
 		GetProductoByIdRequestDecoder, kitHttp.EncodeJSONResponse)
 	r.Method(http.MethodGet, "/{id}", getProductBYIDHandler)
 
+	//ConsultaPaginadaProducto
 	getProductsHandler := kitHttp.NewServer(makeGetProductsEndPoint(s), getProductsRequestDecoder, kitHttp.EncodeJSONResponse)
 	r.Method(http.MethodPost, "/paginated", getProductsHandler)
+
+	//InsertProduct
+	addProductHandler := kitHttp.NewServer(makeAddProductEndPoint(s), addProductRequestDecoder, kitHttp.EncodeJSONResponse)
+	r.Method(http.MethodPost, "/products", addProductHandler)
+
 	return r
+
 }
 
 func GetProductoByIdRequestDecoder(context context.Context, r *http.Request) (interface{}, error) {
@@ -29,6 +37,15 @@ func GetProductoByIdRequestDecoder(context context.Context, r *http.Request) (in
 
 func getProductsRequestDecoder(context context.Context, r *http.Request) (interface{}, error) {
 	request := getProductsRequest{}
+	err := json.NewDecoder(r.Body).Decode(&request)
+	if err != nil {
+		panic(err)
+	}
+	return request, nil
+}
+
+func addProductRequestDecoder(context context.Context, r *http.Request) (interface{}, error) {
+	request := getAddProductRequest{}
 	err := json.NewDecoder(r.Body).Decode(&request)
 	if err != nil {
 		panic(err)

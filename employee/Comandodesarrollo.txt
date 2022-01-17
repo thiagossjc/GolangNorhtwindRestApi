@@ -1,0 +1,27 @@
+POST localhost:3000/employees/
+
+request:
+{
+    "limit":10,
+    "offset": 0
+}
+
+response:
+{
+    "data":[
+        {
+            "id":1,
+            "lastName":"Mota",
+            "firstName":"Thiago",
+            "company":"Engrenelog",
+            "emailAdreess":"thiago.mota@engrenelog.com",
+            "jobTitle":"XXX",
+            "businessPhone":"XXX",
+            "homePhone":"XXX",
+            "mobilePhone":"XXX",
+            "faxPhone":"XXX",
+            "address":"XXX",
+        }
+    ],
+    "totalRecords":100
+}

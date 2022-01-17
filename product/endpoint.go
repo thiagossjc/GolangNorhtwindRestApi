@@ -24,6 +24,20 @@ type getAddProductRequest struct {
 	ProductName  string
 }
 
+type updateProductRequest struct {
+	ID           int
+	Category     string
+	Description  string
+	ListPrice    float32
+	StandardCost float32
+	ProductCode  string
+	ProductName  string
+}
+
+type deleteProductRequest struct {
+	ProductID string
+}
+
 func MakeGetProductByIdEndPoint(s Service) endpoint.Endpoint {
 	getProductByIdEndpoint := func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(getProductBYIDRequest)
@@ -50,7 +64,7 @@ func makeGetProductsEndPoint(s Service) endpoint.Endpoint {
 }
 
 func makeAddProductEndPoint(s Service) endpoint.Endpoint {
-	addProductsEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
+	addProductEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(getAddProductRequest)
 		productId, err := s.InsertProduct(&req)
 		if err != nil {
@@ -58,5 +72,29 @@ func makeAddProductEndPoint(s Service) endpoint.Endpoint {
 		}
 		return productId, nil
 	}
-	return addProductsEndPoint
+	return addProductEndPoint
+}
+
+func makeUpdateProductEndPoint(s Service) endpoint.Endpoint {
+	updateProductEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
+		req := request.(updateProductRequest)
+		productId, err := s.UpdateProduct(&req)
+		if err != nil {
+			panic(err)
+		}
+		return productId, nil
+	}
+	return updateProductEndPoint
+}
+
+func makeDeleteProductEndPoint(s Service) endpoint.Endpoint {
+	deleteProductEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
+		req := request.(deleteProductRequest)
+		result, err := s.DeleteProduct(&req)
+		if err != nil {
+			panic(err)
+		}
+		return result, nil
+	}
+	return deleteProductEndPoint
 }

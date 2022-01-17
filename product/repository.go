@@ -1,12 +1,16 @@
 package product
 
-import "database/sql"
+import (
+	"database/sql"
+)
 
 type Repository interface {
 	GetProductoById(productoID int) (*Product, error)
 	GetProducts(params *getProductsRequest) ([]*Product, error)
 	GetTotalProducts() (int, error)
 	InsertProduct(params *getAddProductRequest) (int64, error)
+	UpdateProduct(params *updateProductRequest) (int64, error)
+	DeleteProduct(params *deleteProductRequest) (int64, error)
 }
 
 type repository struct {
@@ -80,4 +84,35 @@ func (repo repository) InsertProduct(params *getAddProductRequest) (int64, error
 	}
 	id, _ := result.LastInsertId()
 	return id, nil
+}
+
+func (repo repository) UpdateProduct(params *updateProductRequest) (int64, error) {
+	const sql = `UPDATE products
+				SET Product_Code = ?,
+					Product_Name = ?,
+					Category = ?,
+					Description=?,
+					List_Price=?,
+					Standard_Cost=?
+					Where id=?`
+	result, err := repo.db.Exec(sql, params.ProductCode, params.ProductName, params.Category, params.Description, params.ListPrice, params.StandardCost, params.ID)
+
+	if err != nil {
+		panic(err)
+	}
+	id, _ := result.LastInsertId()
+	return id, nil
+}
+
+func (repo repository) DeleteProduct(params *deleteProductRequest) (int64, error) {
+	const sql = `DELETE FROM products WHERE id=?`
+	result, err := repo.db.Exec(sql, params.ProductID)
+	if err != nil {
+		panic(err)
+	}
+	count, err := result.RowsAffected()
+	if err != nil {
+		panic(err)
+	}
+	return count, nil
 }

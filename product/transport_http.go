@@ -24,7 +24,15 @@ func MakeHttpHandler(s Service) http.Handler {
 
 	//InsertProduct
 	addProductHandler := kitHttp.NewServer(makeAddProductEndPoint(s), addProductRequestDecoder, kitHttp.EncodeJSONResponse)
-	r.Method(http.MethodPost, "/products", addProductHandler)
+	r.Method(http.MethodPost, "/", addProductHandler)
+
+	//updateProduct
+	updateProductHandler := kitHttp.NewServer(makeUpdateProductEndPoint(s), updateProductRequestDecoder, kitHttp.EncodeJSONResponse)
+	r.Method(http.MethodPut, "/", updateProductHandler)
+
+	//deleteProduct
+	deleteProductHandler := kitHttp.NewServer(makeDeleteProductEndPoint(s), getdeleteProductRequestDecoder, kitHttp.EncodeJSONResponse)
+	r.Method(http.MethodDelete, "/{id}", deleteProductHandler)
 
 	return r
 
@@ -51,4 +59,19 @@ func addProductRequestDecoder(context context.Context, r *http.Request) (interfa
 		panic(err)
 	}
 	return request, nil
+}
+
+func updateProductRequestDecoder(context context.Context, r *http.Request) (interface{}, error) {
+	request := updateProductRequest{}
+	err := json.NewDecoder(r.Body).Decode(&request)
+	if err != nil {
+		panic(err)
+	}
+	return request, nil
+}
+
+func getdeleteProductRequestDecoder(context context.Context, r *http.Request) (interface{}, error) {
+	return deleteProductRequest{
+		ProductID: chi.URLParam(r, "id"),
+	}, nil
 }

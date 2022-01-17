@@ -54,3 +54,17 @@ response{
         <prodct_Id>
     }
 }
+
+
+
+PUT localhost:3000/products/
+request:{
+    "id": 2,
+    "category": "XXX",
+    "description": "XXX",
+    "listPrice": "123",
+    "standardCost": "23",
+    "productCode": "XXX",
+    "productName": "XXX",
+
+}

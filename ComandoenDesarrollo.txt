@@ -68,3 +68,33 @@ request:{
     "productName": "XXX",
 
 }
+
+
+GET localhost:3000/products/bestSellers
+
+response:
+{
+    "data":[
+        {
+            "id": 1,
+            "procutName":"ewr",
+            "vendidos": 1999.22
+        },
+        {
+            "id": 2,
+            "procutName":"erewwr",
+            "vendidos": 1999.25
+        }
+    ],
+    "totalVentas":2
+}
+
+SELECT 
+    od.product_id,
+    p.product_name,
+    SUM(od.quantity*od.unit_price) vendidos
+    FROM northwind.oder_details od 
+    inner join northwind.products p od.product_id = p.id
+    GROUP BY od.product_id
+    ORDER BY vendido desc
+    limit 10

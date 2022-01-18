@@ -24,4 +24,24 @@ response:
         }
     ],
     "totalRecords":100
+}        
+
+
+//Obtener Empleado por id
+GET localhost:3000/employees/1
+
+response:
+{
+    "id":1,
+    "lastName":"Mota",
+    "firstName":"Thiago",
+    "company":"Engrenelog",
+    "emailAdreess":"thiago.mota@engrenelog.com",
+    "jobTitle":"XXX",
+    "businessPhone":"XXX",
+    "homePhone":"XXX",
+    "mobilePhone":"XXX",
+    "faxPhone":"XXX",
+    "address":"XXX",
+    
 }

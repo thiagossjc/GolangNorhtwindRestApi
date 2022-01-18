@@ -5,6 +5,7 @@ import "github.com/GolangNorhtwindRestApi/helper"
 type Service interface {
 	getEmployees(params *getEmployeesRequest) (*EmployeeList, error)
 	//GetTotalEmployees() (int64, error)
+	GetEmployeeById(params *getEmployeeByIDRequest) (*Employee, error)
 }
 
 type service struct {
@@ -21,4 +22,8 @@ func (s *service) getEmployees(params *getEmployeesRequest) (*EmployeeList, erro
 	totalEmployees, err := s.repo.GetTotalEmployees()
 	helper.Catch(err)
 	return &EmployeeList{Data: employees, TotalRecords: totalEmployees}, nil
+}
+
+func (s *service) GetEmployeeById(params *getEmployeeByIDRequest) (*Employee, error) {
+	return s.repo.GetEmployeeById(params)
 }

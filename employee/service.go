@@ -6,6 +6,7 @@ type Service interface {
 	getEmployees(params *getEmployeesRequest) (*EmployeeList, error)
 	//GetTotalEmployees() (int64, error)
 	GetEmployeeById(params *getEmployeeByIDRequest) (*Employee, error)
+	GetBestEmployee() (*BestEmployee, error)
 }
 
 type service struct {
@@ -26,4 +27,8 @@ func (s *service) getEmployees(params *getEmployeesRequest) (*EmployeeList, erro
 
 func (s *service) GetEmployeeById(params *getEmployeeByIDRequest) (*Employee, error) {
 	return s.repo.GetEmployeeById(params)
+}
+
+func (s *service) GetBestEmployee() (*BestEmployee, error) {
+	return s.repo.GetBestEmployee()
 }

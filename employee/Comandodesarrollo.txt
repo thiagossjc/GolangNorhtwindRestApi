@@ -58,3 +58,57 @@ response{
     "lastName":"XXXX"
     "firstName":"XXX"
 }
+
+//Agregar Empleado
+POST localhost:3000/employees
+
+request:{
+    "address":"",
+    "businessPhone":"",
+    "company":"",
+    "emailAdreess":"",
+    "faxNumber":"",
+    "firstName":"",
+    "lastName":"",
+    "homePhone":"",
+    "jobTitle":"",
+    "mobilePhone":""
+
+}
+
+response:
+{
+    <employee_id>
+}
+
+//Actualizar empleado
+PUT localhost:3000/employees
+request:
+{
+    "id":"",
+    "address":"",
+    "businessPhone":"",
+    "company":"",
+    "emailAdreess":"",
+    "faxNumber":"",
+    "firstName":"",
+    "lastName":"",
+    "homePhone":"",
+    "jobTitle":"",
+    "mobilePhone":""
+   
+}
+
+response:{
+    employee_id
+}
+
+
+Eliminar Empleado
+
+DELETE localhost:3000/employees/1
+
+response:
+{
+    <nro_filas_afectadas>
+}

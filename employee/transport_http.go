@@ -24,11 +24,26 @@ func MakeHttpHandler(s Service) http.Handler {
 		kithttp.EncodeJSONResponse)
 	r.Method(http.MethodGet, "/best", getBestEmployeeHandler)
 
+	AddEmployeeHandler := kithttp.NewServer(makeAddEmployeeEndPoint(s), getaddEmployeeRequestDecoder,
+		kithttp.EncodeJSONResponse)
+	r.Method(http.MethodPost, "/", AddEmployeeHandler)
+
+	UpdateEmployeeHandler := kithttp.NewServer(makeUpdateEmployeeEndPoint(s), getUpdateEmployeeRequestDecoder,
+		kithttp.EncodeJSONResponse)
+	r.Method(http.MethodPost, "/", UpdateEmployeeHandler)
+
+	DeleteEmployeeHandler := kithttp.NewServer(makeDeleteEmployeeEndPoint(s), getDeleteEmployeeRequestDecoder,
+		kithttp.EncodeJSONResponse)
+	r.Method(http.MethodDelete, "/{id}", DeleteEmployeeHandler)
+
 	return r
 }
 
 func getEmployeesRequestDecoder(_ context.Context, r *http.Request) (interface{}, error) {
-	request := getEmployeesRequest{}
+	request := getEmployeesRequest{
+		Limit:  0,
+		Offset: 0,
+	}
 	err := json.NewDecoder(r.Body).Decode(&request)
 	helper.Catch(err)
 	return request, nil
@@ -47,4 +62,24 @@ func getBestEmployeeRequestDecoder(_ context.Context, r *http.Request) (interfac
 	//err := json.NewDecoder(r.Body).Decode(&request)
 	//helper.Catch(err)
 	//return request, nil
+}
+
+func getaddEmployeeRequestDecoder(context context.Context, r *http.Request) (interface{}, error) {
+	request := addEmployeeRequest{}
+	err := json.NewDecoder(r.Body).Decode(&request)
+	helper.Catch(err)
+	return request, nil
+}
+
+func getUpdateEmployeeRequestDecoder(context context.Context, r *http.Request) (interface{}, error) {
+	request := updateEmployeeRequest{}
+	err := json.NewDecoder(r.Body).Decode(&request)
+	helper.Catch(err)
+	return request, nil
+}
+
+func getDeleteEmployeeRequestDecoder(context context.Context, r *http.Request) (interface{}, error) {
+	return deleteEmployeeRequest{
+		EmployeeId: chi.URLParam(r, "id"),
+	}, nil
 }

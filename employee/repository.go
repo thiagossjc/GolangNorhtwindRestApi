@@ -11,6 +11,9 @@ type Respository interface {
 	GetTotalEmployees() (int64, error)
 	GetEmployeeById(params *getEmployeeByIDRequest) (*Employee, error)
 	GetBestEmployee() (*BestEmployee, error)
+	InsertEmployee(params *addEmployeeRequest) (int64, error)
+	UpdateEmployee(params *updateEmployeeRequest) (int64, error)
+	DeleteEmployee(params *deleteEmployeeRequest) (int64, error)
 }
 
 type repository struct {
@@ -84,4 +87,49 @@ func (repo *repository) GetBestEmployee() (*BestEmployee, error) {
 	helper.Catch(err)
 	return employee, nil
 
+}
+
+func (repo *repository) InsertEmployee(params *addEmployeeRequest) (int64, error) {
+	const sql = `INSERT INTO employess
+				(first_name, last_name,company,address,business, business_phone,email_address,
+				fax_number, home_phone, job_title, mobile_phone)
+				VALUES (?,?,?,?,?,?,?,?,?,?,?)`
+	result, err := repo.db.Exec(sql, params.FirstName, params.LastName,
+		params.Company, params.Address, params.Business, params.BusinessPhone, params.EmailAddress,
+		params.FaxNumber, params.HomePhone, params.JobTitle, params.MobilePhone)
+
+	helper.Catch(err)
+	id, _ := result.LastInsertId()
+	return id, nil
+
+}
+
+func (repo *repository) UpdateEmployee(params *updateEmployeeRequest) (int64, error) {
+	const sql = `UPDATE employees
+				SET first_name =?,
+				last_name =?,
+				company =?,
+				address =?,
+				business= ?,
+				email_address=?,
+				fax_number=?,
+				home_phone=?,
+				job_title=?,
+				mobile_phone?
+					Where id=?`
+	result, err := repo.db.Exec(sql, params.FirstName, params.LastName, params.Company, params.Address,
+		params.Business, params.EmailAddress, params.FaxNumber, params.JobTitle, params.JobTitle, params.MobilePhone)
+
+	helper.Catch(err)
+	id, _ := result.LastInsertId()
+	return id, nil
+}
+
+func (repo *repository) DeleteEmployee(params *deleteEmployeeRequest) (int64, error) {
+	const sql = `DELETE FROM employees WHERE id = ?`
+	result, err := repo.db.Exec(sql, params.EmployeeId)
+	helper.Catch(err)
+	count, err := result.RowsAffected()
+	helper.Catch(err)
+	return count, nil
 }

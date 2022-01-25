@@ -7,7 +7,7 @@ import (
 )
 
 type Repository interface {
-	GetOrderById(param *getOderBYIdRequest) (*OrderItem, error)
+	GetOrderById(param *getOrderByIdRequest) (*OrderItem, error)
 }
 
 type repository struct {
@@ -20,7 +20,7 @@ func NewRepository(db *sql.DB) Repository {
 	}
 }
 
-func (repo *repository) GetOrderById(param *getOderBYIdRequest) (*OrderItem, error) {
+func (repo *repository) GetOrderById(param *getOrderByIdRequest) (*OrderItem, error) {
 	const sql = `SELECT o.id,
 						o.customer_id,
 						o.order_date,
@@ -37,12 +37,12 @@ func (repo *repository) GetOrderById(param *getOderBYIdRequest) (*OrderItem, err
 						where o.id= ?`
 
 	order := &OrderItem{}
-	row := repo.db.QueryRow(sql, param.orderID)
+	row := repo.db.QueryRow(sql, param.OrderID)
 	err := row.Scan(&order.ID, &order.CustomerID, &order.OrderDate, &order.StatusId,
 		&order.StatusName, &order.Customer, &order.Company, &order.Address,
 		&order.Phone, order.City)
 	helper.Catch(err)
-	orderDetail, err := GetOrderDetail(repo, &param.orderID)
+	orderDetail, err := GetOrderDetail(repo, &param.OrderID)
 	helper.Catch(err)
 	order.Data = orderDetail
 	return order, nil

@@ -50,18 +50,13 @@ func getEmployeesRequestDecoder(_ context.Context, r *http.Request) (interface{}
 }
 
 func getEmployeesByIdRequestDecoder(_ context.Context, r *http.Request) (interface{}, error) {
-	//request := getEmployeeByIDRequest{}
-	//err := json.NewDecoder(r.Body).Decode(&request)
-	//helper.Catch(err)
+
 	return getEmployeeByIDRequest{
 		EmployeeID: chi.URLParam(r, "id")}, nil
 }
 
 func getBestEmployeeRequestDecoder(_ context.Context, r *http.Request) (interface{}, error) {
 	return getBestEmployeeRequest{}, nil
-	//err := json.NewDecoder(r.Body).Decode(&request)
-	//helper.Catch(err)
-	//return request, nil
 }
 
 func getaddEmployeeRequestDecoder(context context.Context, r *http.Request) (interface{}, error) {

@@ -10,6 +10,7 @@ require (
 )
 
 require (
+	github.com/go-chi/chi v1.5.4
 	github.com/go-kit/log v0.2.0 // indirect
 	github.com/go-logfmt/logfmt v0.5.1 // indirect
 )

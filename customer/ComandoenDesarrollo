@@ -1,0 +1,24 @@
+Obtener Listados de Clientes paginados
+
+GET localhosst:3000/customers/paginated
+
+request:{
+    "limit": 10,
+    "offset":0
+}
+
+response:{
+    {
+        "data":[
+                {
+                    "id":1,
+                    "firstName":"dsdfs",
+                    "lastName":"dfsdf",
+                    "address":"dsfsfd",
+                    "businessPhone":"asas",
+                    "city":"asas",
+                    "company":"ddfad",
+                }
+               ],"  totalRecords:20
+    }
+}

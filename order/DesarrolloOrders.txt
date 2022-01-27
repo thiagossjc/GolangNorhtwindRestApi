@@ -27,3 +27,42 @@ response:
             }
     ]
 }
+
+Obtener Listado de Ordenes Paginado
+
+GET localhost:3000/paginated
+
+request:{
+    "limit":10,
+    "offset":0, 
+    "status":1, **opcional
+    "dateFrom":"10/10/2018", **opcional
+    "dateTo":"10/10/2018", **opcional
+}
+response:{
+    "data":[
+        {
+            "id":12,
+            "customerId":12,
+            "orderDate":"10/12/2012",
+            "statusId":12,
+            "statusName":"Enviado",
+            "customer":"Pablito",
+            "company":"kilombo",
+            "address":"Santiago",
+            "phone":"234242242",
+            "city":"Lima",
+            "data": [
+                {
+                    "id":1,
+                    "orderId":1,
+                    "productId":1,
+                    "quantity":1,
+                    "unitPrice":1,
+                    "productName":"Papaya",
+                }
+            ]
+        }
+    ],
+    "totalRecords": 10
+}

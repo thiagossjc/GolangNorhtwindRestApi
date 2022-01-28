@@ -11,6 +11,13 @@ type Repository interface {
 	GetOrderById(param *getOrderByIdRequest) (*OrderItem, error)
 	GetOrders(param *getOrdersRequest) ([]*OrderItem, error)
 	GetTotalOrders(param *getOrdersRequest) (int64, error)
+	InsertOrder(param *addOrderRequest) (int64, error)
+	InsertOrderDetal(param *addOrderDetailRequest) (int64, error)
+	UpdateOrder(param *addOrderRequest) (int64, error)
+	UpdateOrderDetal(param *addOrderDetailRequest) (int64, error)
+	DeleteOrderDetail(param *deleteOrderDetailRequest) (int64, error)
+	DeleteOrderDetailbyOrderId(param *deleteOrderRequest) (int64, error)
+	DeleteOrder(param *deleteOrderRequest) (int64, error)
 }
 
 type repository struct {
@@ -145,4 +152,81 @@ func (repo *repository) GetTotalOrders(param *getOrdersRequest) (int64, error) {
 	err := row.Scan(&total)
 	helper.Catch(err)
 	return total, nil
+}
+
+func (repo *repository) InsertOrder(param *addOrderRequest) (int64, error) {
+	const sql = `INSERT INTO orders
+	(customer_id,order_date)
+	VALUES (?,?)`
+	result, err := repo.db.Exec(sql, param.CustomerId, param.OrderDate)
+
+	helper.Catch(err)
+	id, err := result.LastInsertId()
+	helper.Catch(err)
+
+	return id, nil
+}
+
+func (repo *repository) InsertOrderDetal(param *addOrderDetailRequest) (int64, error) {
+	const sql = `INSERT INTO orders_details
+	(order_id,product_id,quantity,unit_price)
+	VALUES (?,?,?,?)`
+	result, err := repo.db.Exec(sql, param.OrderId, param.ProductId, param.Quantity,
+		param.UnitPrice)
+
+	helper.Catch(err)
+	id, err := result.LastInsertId()
+	helper.Catch(err)
+
+	return id, nil
+}
+
+func (repo *repository) UpdateOrder(param *addOrderRequest) (int64, error) {
+	const sql = `UPDATE orders
+				 SET customer_id = ?
+				 WHERE id = ?`
+	_, err := repo.db.Exec(sql, param.CustomerId, param.Id)
+	helper.Catch(err)
+
+	return param.Id, nil
+}
+func (repo *repository) UpdateOrderDetal(param *addOrderDetailRequest) (int64, error) {
+	const sql = `UPDATE orders_details
+				 SET order_id= ?,
+				 	product_id= ?,
+					quantity= ?,
+					unit_price= ?
+					WHERE id =?`
+	_, err := repo.db.Exec(sql, param.OrderId, param.ProductId, param.Quantity, param.UnitPrice,
+		param.Id)
+	helper.Catch(err)
+	return param.Id, nil
+
+}
+
+func (repo *repository) DeleteOrderDetail(param *deleteOrderDetailRequest) (int64, error) {
+	const sql = "DELETE FROM order_details WHERE id = ?"
+	result, err := repo.db.Exec(sql, param.OrderDetailId)
+	helper.Catch(err)
+	count, err := result.RowsAffected()
+	helper.Catch(err)
+	return count, nil
+}
+
+func (repo *repository) DeleteOrderDetailbyOrderId(param *deleteOrderRequest) (int64, error) {
+	const sql = "DELETE FROM order_details WHERE order_id=?"
+	result, err := repo.db.Exec(sql, param.OrderId)
+	helper.Catch(err)
+	count, err := result.RowsAffected()
+	helper.Catch(err)
+	return count, nil
+}
+func (repo *repository) DeleteOrder(param *deleteOrderRequest) (int64, error) {
+	const sql = "DELETE FROM orders WHERE id=?"
+	result, err := repo.db.Exec(sql, param.OrderId)
+	helper.Catch(err)
+	count, err := result.RowsAffected()
+	helper.Catch(err)
+	return count, nil
+
 }

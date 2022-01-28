@@ -66,3 +66,58 @@ response:{
     ],
     "totalRecords": 10
 }
+
+
+
+Agregar Orden
+POST localhost:3000/orders/
+
+request:
+{
+    "customerId":1,
+    "orderDate":"10/10/2019"
+    "orderDetails":[
+        {
+            "productId":1,
+            "quantity":43,
+            "unitPrice":23
+        }
+    ]
+}
+response:
+OrderID
+
+Actualizar Orden
+PUT localhost:3000/orders/
+
+
+request:
+{
+    "id":1
+    "customerId":1,
+    "orderDate":"10/10/2019"
+    "orderDetails":[
+        {
+          "id":1,  
+          "productId":1,
+            "quantity":43,
+            "unitPrice":23
+        }
+    ]
+}
+response:
+OrderID
+
+
+Eliminar un Producto de una Orden
+
+DELETE localhost:3000/orders/82/detail/92
+response:
+OrderId: #Filas afectadas
+
+
+Eliminar Orden
+DELETE localhost:3000/orders/82
+
+response:
+OrderId: #Filas afectadas!

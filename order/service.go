@@ -5,6 +5,10 @@ import "github.com/GolangNorhtwindRestApi/helper"
 type Service interface {
 	GetOrderById(params *getOrderByIdRequest) (*OrderItem, error)
 	GetOrders(params *getOrdersRequest) (*OrderList, error)
+	InsertOrder(param *addOrderRequest) (int64, error)
+	UpdateOrder(param *addOrderRequest) (int64, error)
+	DeleteOrderDetail(param *deleteOrderDetailRequest) (int64, error)
+	DeleteOrder(param *deleteOrderRequest) (int64, error)
 }
 
 type service struct {
@@ -32,4 +36,43 @@ func (s *service) GetOrders(params *getOrdersRequest) (*OrderList, error) {
 	//return list, err
 	//o se puede hacer asi con menos codigo
 	return &OrderList{Data: orders, TotalRecords: totalOrders}, nil
+}
+
+func (s *service) InsertOrder(param *addOrderRequest) (int64, error) {
+	orderId, err := s.repo.InsertOrder(param)
+	helper.Catch(err)
+
+	for _, detail := range param.OrderDetails {
+		detail.OrderId = orderId
+		_, err := s.repo.InsertOrderDetal(detail)
+		helper.Catch(err)
+	}
+	return orderId, nil
+}
+
+func (s *service) UpdateOrder(param *addOrderRequest) (int64, error) {
+	orderId, err := s.repo.UpdateOrder(param)
+	helper.Catch(err)
+
+	for _, detail := range param.OrderDetails {
+		detail.OrderId = orderId
+		if detail.Id == 0 {
+			_, err = s.repo.InsertOrderDetal(detail)
+		} else {
+			_, err = s.repo.UpdateOrderDetal(detail)
+		}
+		helper.Catch(err)
+
+	}
+	return orderId, nil
+}
+
+func (s service) DeleteOrderDetail(param *deleteOrderDetailRequest) (int64, error) {
+	return s.repo.DeleteOrderDetail(param)
+}
+
+func (s service) DeleteOrder(param *deleteOrderRequest) (int64, error) {
+	_, err := s.repo.DeleteOrderDetailbyOrderId(param)
+	helper.Catch(err)
+	return s.repo.DeleteOrder(param)
 }

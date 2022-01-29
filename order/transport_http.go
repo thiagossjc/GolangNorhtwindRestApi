@@ -39,7 +39,6 @@ func MakeHttpHandler(s Service) http.Handler {
 	r.Method(http.MethodDelete, "/{id}", deleteOrderHandler)
 
 	return r
-
 }
 
 func getOrderByIdRequestDecoder(_ context.Context, r *http.Request) (interface{}, error) {

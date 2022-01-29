@@ -9,9 +9,18 @@ import (
 	"github.com/GolangNorhtwindRestApi/order"
 	"github.com/GolangNorhtwindRestApi/product"
 
+	_ "github.com/GolangNorhtwindRestApi/docs"
 	"github.com/go-chi/chi/v5"
 	_ "github.com/go-sql-driver/mysql"
+	httpSwagger "github.com/swaggo/http-swagger"
 )
+
+// @title Engrenelog Goolivery Provider APi
+// @version 1.0
+// @description APIs desarrolladas en Golang para el Sistema Goolivery Provider
+// @contact.name API Support (Thiago Mota)
+// @contact.url http://gooliveryprovider
+// @contact.email thiago@engrenelog.com
 
 func main() {
 	databaseConnection := database.InitDB()
@@ -40,5 +49,6 @@ func main() {
 	r.Mount("/customers", customer.MakeHttpHandler(customerService))
 	r.Mount("/orders", order.MakeHttpHandler(orderService))
 
+	r.Get("/swagger/*", httpSwagger.Handler(httpSwagger.URL("../swagger/doc.json")))
 	http.ListenAndServe(":3000", r)
 }

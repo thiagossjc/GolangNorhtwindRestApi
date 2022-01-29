@@ -1,0 +1,10 @@
+info:
+  contact:
+    email: thiago@engrenelog.com
+    name: API Support (Thiago Mota)
+    url: http://gooliveryprovider
+  description: APIs desarrolladas en Golang para el Sistema Goolivery Provider
+  title: Engrenelog Goolivery Provider APi
+  version: "1.0"
+paths: {}
+swagger: "2.0"

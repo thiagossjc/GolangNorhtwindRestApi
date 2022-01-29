@@ -1,0 +1,14 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "APIs desarrolladas en Golang para el Sistema Goolivery Provider",
+        "title": "Engrenelog Goolivery Provider APi",
+        "contact": {
+            "name": "API Support (Thiago Mota)",
+            "url": "http://gooliveryprovider",
+            "email": "thiago@engrenelog.com"
+        },
+        "version": "1.0"
+    },
+    "paths": {}
+}

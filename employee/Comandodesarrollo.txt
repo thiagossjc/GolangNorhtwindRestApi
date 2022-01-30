@@ -89,7 +89,7 @@ request:
     "address":"",
     "businessPhone":"",
     "company":"",
-    "emailAdreess":"",
+    "emailAddress":"",
     "faxNumber":"",
     "firstName":"",
     "lastName":"",

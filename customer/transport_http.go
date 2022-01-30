@@ -21,7 +21,10 @@ func MakeHttpHandler(s Service) http.Handler {
 }
 
 func getCustomersRequestDecoder(_ context.Context, r *http.Request) (interface{}, error) {
-	request := getCustomersRequest{}
+	request := getCustomersRequest{
+		Limit:  0,
+		Offset: 0,
+	}
 	err := json.NewDecoder(r.Body).Decode(&request)
 	helper.Catch(err)
 	return request, nil

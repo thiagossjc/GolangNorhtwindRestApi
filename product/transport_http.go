@@ -36,7 +36,7 @@ func MakeHttpHandler(s Service) http.Handler {
 	r.Method(http.MethodDelete, "/{id}", deleteProductHandler)
 
 	//BestSellers
-	getBestSellersHandler := kitHttp.NewServer(makeAddProductEndPoint(s), getBestellersRequestDecoder, kitHttp.EncodeJSONResponse)
+	getBestSellersHandler := kitHttp.NewServer(makeBestSellersEndPoint(s), getBestSellersRequestDecoder, kitHttp.EncodeJSONResponse)
 	r.Method(http.MethodGet, "/bestSellers", getBestSellersHandler)
 
 	return r
@@ -75,6 +75,6 @@ func getdeleteProductRequestDecoder(context context.Context, r *http.Request) (i
 	}, nil
 }
 
-func getBestellersRequestDecoder(context context.Context, r *http.Request) (interface{}, error) {
-	return getBestellersRequest{}, nil
+func getBestSellersRequestDecoder(context context.Context, r *http.Request) (interface{}, error) {
+	return getBestSellersRequest{}, nil
 }

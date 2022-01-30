@@ -28,20 +28,36 @@ func NewRepository(db *sql.DB) Respository {
 
 func (repo *repository) GetEmployees(params *getEmployeesRequest) ([]*Employee, error) {
 	const sql = `SELECT
-				id, first_name, last_name, company,
-				email_address, job_title,
-				business_phone, home_phone,
-				mobile_phone, fax_number, address
-				FROM nortwind.employees
+				id,
+				first_name,
+				last_name,
+				company,
+				email_address,
+				job_title,
+				business_phone,
+				home_phone,
+				COALESCE(mobile_phone, ''),
+				fax_number,
+				address
+				FROM employees
 				LIMIT ? OFFSET ?`
 	results, err := repo.db.Query(sql, params.Limit, params.Offset)
 	helper.Catch(err)
 	var employees []*Employee
 	for results.Next() {
 		employee := &Employee{}
-		err = results.Scan(&employee.ID, &employee.FirstName, &employee.LastName, &employee.Company,
-			&employee.EmailAddress, &employee.JobTitle, &employee.BusinessPhone, &employee.HomePhone,
-			&employee.MobilePhone, &employee.FaxNumber, &employee.Address)
+		err = results.Scan(
+			&employee.ID,
+			&employee.FirstName,
+			&employee.LastName,
+			&employee.Company,
+			&employee.EmailAddress,
+			&employee.JobTitle,
+			&employee.BusinessPhone,
+			&employee.HomePhone,
+			&employee.MobilePhone,
+			&employee.FaxNumber,
+			&employee.Address)
 		helper.Catch(err)
 		employees = append(employees, employee)
 	}
@@ -58,23 +74,42 @@ func (repo *repository) GetTotalEmployees() (int64, error) {
 }
 
 func (repo *repository) GetEmployeeById(params *getEmployeeByIDRequest) (*Employee, error) {
-	const sql = `SELECT id, first_name, last_name, company,
-				email_address,job_title,business_phone, home_phone,
-				COALESCE(mobile_phone, ''),fax_number, address
-				 FROM northwind.employees
-				 WHERE id=?`
+	const sql = `SELECT id,
+				first_name,
+				last_name,
+				company,
+				email_address,
+				job_title,
+				business_phone,
+				home_phone,
+				COALESCE(mobile_phone, ''),
+				fax_number,
+				address
+				FROM employees
+				WHERE id=?`
 	row := repo.db.QueryRow(sql, params.EmployeeID)
 	employee := &Employee{}
-	err := row.Scan(&employee.ID, &employee.FirstName, &employee.LastName, &employee.Company,
-		&employee.EmailAddress, &employee.JobTitle, &employee.BusinessPhone, &employee.HomePhone,
-		&employee.MobilePhone, &employee.FaxNumber, &employee.Address)
+	err := row.Scan(&employee.ID,
+		&employee.FirstName,
+		&employee.LastName,
+		&employee.Company,
+		&employee.EmailAddress,
+		&employee.JobTitle,
+		&employee.BusinessPhone,
+		&employee.HomePhone,
+		&employee.MobilePhone,
+		&employee.FaxNumber,
+		&employee.Address)
 	helper.Catch(err)
 
 	return employee, nil
 }
 
 func (repo *repository) GetBestEmployee() (*BestEmployee, error) {
-	const sql = `SELECT e.id,count(e.id) as totalVentas, e.first_name, e.last_name,
+	const sql = `SELECT e.id,
+				count(e.id) as totalVentas,
+				e.first_name,
+				e.last_name
 				FROM orders o
 				INNER JOIN employees e ON o.employee_id= e.id 
 				GROUP BY o.employee_id
@@ -90,13 +125,30 @@ func (repo *repository) GetBestEmployee() (*BestEmployee, error) {
 }
 
 func (repo *repository) InsertEmployee(params *addEmployeeRequest) (int64, error) {
-	const sql = `INSERT INTO employess
-				(first_name, last_name,company,address,business, business_phone,email_address,
-				fax_number, home_phone, job_title, mobile_phone)
-				VALUES (?,?,?,?,?,?,?,?,?,?,?)`
-	result, err := repo.db.Exec(sql, params.FirstName, params.LastName,
-		params.Company, params.Address, params.Business, params.BusinessPhone, params.EmailAddress,
-		params.FaxNumber, params.HomePhone, params.JobTitle, params.MobilePhone)
+	const sql = `INSERT INTO employees
+				(first_name,
+				 last_name,
+				 company,
+				 address,
+				 business_phone,
+				 email_address,
+				 fax_number,
+				 home_phone,
+				 job_title,
+				 mobile_phone)
+				 VALUES (?,?,?,?,?,?,?,?,?,?)`
+
+	result, err := repo.db.Exec(sql,
+		params.FirstName,
+		params.LastName,
+		params.Company,
+		params.Address,
+		params.BusinessPhone,
+		params.EmailAddress,
+		params.FaxNumber,
+		params.HomePhone,
+		params.JobTitle,
+		params.MobilePhone)
 
 	helper.Catch(err)
 	id, _ := result.LastInsertId()
@@ -110,15 +162,24 @@ func (repo *repository) UpdateEmployee(params *updateEmployeeRequest) (int64, er
 				last_name =?,
 				company =?,
 				address =?,
-				business= ?,
+				business_phone=?,
 				email_address=?,
 				fax_number=?,
 				home_phone=?,
 				job_title=?,
-				mobile_phone?
-					Where id=?`
-	result, err := repo.db.Exec(sql, params.FirstName, params.LastName, params.Company, params.Address,
-		params.Business, params.EmailAddress, params.FaxNumber, params.JobTitle, params.JobTitle, params.MobilePhone)
+				mobile_phone=?
+				WHERE id=?`
+	result, err := repo.db.Exec(sql,
+		params.FirstName,
+		params.LastName,
+		params.Company,
+		params.Address,
+		params.BusinessPhone,
+		params.EmailAddress,
+		params.FaxNumber,
+		params.HomePhone,
+		params.JobTitle,
+		params.MobilePhone)
 
 	helper.Catch(err)
 	id, _ := result.LastInsertId()

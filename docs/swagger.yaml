@@ -1,10 +1,249 @@
+definitions:
+  customer.Customer:
+    properties:
+      address:
+        type: string
+      businessphone:
+        type: string
+      city:
+        type: string
+      company:
+        type: string
+      firstname:
+        type: string
+      id:
+        type: integer
+      lastname:
+        type: string
+    type: object
+  customer.CustomerList:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/customer.Customer'
+        type: array
+      totalRecords:
+        type: integer
+    type: object
+  customer.getCustomersRequest:
+    properties:
+      limit:
+        type: integer
+      offset:
+        type: integer
+    type: object
+  employee.BestEmployee:
+    properties:
+      Id:
+        type: integer
+      firstName:
+        type: string
+      lastName:
+        type: string
+      totalVentas:
+        type: integer
+    type: object
+  employee.Employee:
+    properties:
+      address:
+        type: string
+      businessPhone:
+        type: string
+      company:
+        type: string
+      emailAddress:
+        type: string
+      faxNumber:
+        type: string
+      firstName:
+        type: string
+      homePhone:
+        type: string
+      id:
+        type: integer
+      jobTitle:
+        type: string
+      lastName:
+        type: string
+      mobilePhone:
+        type: string
+    type: object
+  employee.EmployeeList:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/employee.Employee'
+        type: array
+      totalRecords:
+        type: integer
+    type: object
+  employee.getEmployeesRequest:
+    properties:
+      limit:
+        type: integer
+      offset:
+        type: integer
+    type: object
+  product.Product:
+    properties:
+      category:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      listPrice:
+        type: number
+      productCode:
+        type: string
+      productName:
+        type: string
+      standadCost:
+        type: number
+    type: object
+  product.ProductList:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/product.Product'
+        type: array
+      totalRecords:
+        type: integer
+    type: object
+  product.ProductTop:
+    properties:
+      id:
+        type: integer
+      product_name:
+        type: string
+      vendidos:
+        type: number
+    type: object
+  product.getProductsRequest:
+    properties:
+      limit:
+        type: integer
+      offset:
+        type: integer
+    type: object
 info:
   contact:
     email: thiago@engrenelog.com
     name: API Support (Thiago Mota)
-    url: http://gooliveryprovider
+    url: http://engrenelog.com/es/
   description: APIs desarrolladas en Golang para el Sistema Goolivery Provider
   title: Engrenelog Goolivery Provider APi
   version: "1.0"
-paths: {}
+paths:
+  /customers/paginated:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/customer.getCustomersRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/customer.CustomerList'
+      summary: Lista de Clientes
+      tags:
+      - Customers
+  /employees/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Employee Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/employee.Employee'
+      summary: Empleado By Id
+      tags:
+      - Employees
+  /employees/best:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/employee.BestEmployee'
+      summary: Mejor Empleado
+      tags:
+      - Employees
+  /employees/paginated:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/employee.getEmployeesRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/employee.EmployeeList'
+      summary: Lista de Empleados
+      tags:
+      - Employees
+  /products/bestSellers:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/product.ProductTop'
+      summary: Mejores Productos
+      tags:
+      - Products
+  /products/paginated:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/product.getProductsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/product.ProductList'
+      summary: Lista de Productos paginada
+      tags:
+      - Products
 swagger: "2.0"

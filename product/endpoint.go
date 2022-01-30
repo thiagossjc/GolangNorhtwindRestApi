@@ -20,7 +20,7 @@ type getAddProductRequest struct {
 	Category     string
 	Description  string
 	ListPrice    string
-	StandartCost string
+	StandardCost string
 	ProductCode  string
 	ProductName  string
 }
@@ -39,7 +39,7 @@ type deleteProductRequest struct {
 	ProductID string
 }
 
-type getBestellersRequest struct {
+type getBestSellersRequest struct {
 }
 
 func MakeGetProductByIdEndPoint(s Service) endpoint.Endpoint {
@@ -54,13 +54,19 @@ func MakeGetProductByIdEndPoint(s Service) endpoint.Endpoint {
 	return getProductByIdEndpoint
 }
 
+// @Summary Lista de Productos paginada
+// @Tags Products
+// @Accept json
+// @Produce json
+// @Param request body product.getProductsRequest true "User Data"
+// @Success 200 {object} product.ProductList "ok"
+// @Router /products/paginated [post]
 func makeGetProductsEndPoint(s Service) endpoint.Endpoint {
 	getProductsEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(getProductsRequest)
 		result, err := s.GetProducts(&req)
 		helper.Catch(err)
 		return result, nil
-
 	}
 	return getProductsEndPoint
 }
@@ -95,7 +101,13 @@ func makeDeleteProductEndPoint(s Service) endpoint.Endpoint {
 	return deleteProductEndPoint
 }
 
-func makeBestellersEndPoint(s Service) endpoint.Endpoint {
+// @Summary Mejores Productos
+// @Tags Products
+// @Accept json
+// @Produce json
+// @Success 200 {object} product.ProductTop "ok"
+// @Router /products/bestSellers [get]
+func makeBestSellersEndPoint(s Service) endpoint.Endpoint {
 	getBestSellersEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
 		result, err := s.GetBestSellers()
 		helper.Catch(err)

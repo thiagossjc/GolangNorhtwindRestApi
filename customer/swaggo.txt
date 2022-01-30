@@ -1,0 +1,5 @@
+Swagger
+go get github.com/swaggo/swag/cmd/swag
+swag init
+go get -u github.com/swaggo/http-swagger
+

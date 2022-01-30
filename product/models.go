@@ -1,17 +1,18 @@
 package product
 
 type Product struct {
-	Id          int     `json:"id"`
-	ProductCode string  `json:"productCode"`
-	ProductName string  `json:"productName"`
-	Description string  `json:"description"`
-	ListPrice   float64 `json:"listPrice"`
-	Category    string  `json:"category"`
+	Id           int     `json:"id"`
+	ProductCode  string  `json:"productCode"`
+	ProductName  string  `json:"productName"`
+	StandardCost float64 `json:"standadCost"`
+	Description  string  `json:"description"`
+	ListPrice    float64 `json:"listPrice"`
+	Category     string  `json:"category"`
 }
 
 type ProductList struct {
 	Data         []*Product `json:"data"`
-	TotalRecords int        `json:"TotalRecords"`
+	TotalRecords int        `json:"totalRecords"`
 }
 
 type ProductTop struct {

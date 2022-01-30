@@ -22,6 +22,5 @@ func (s *service) GetCustomers(param *getCustomersRequest) (*CustomerList, error
 
 	totalCustomers, err := s.repo.GetTotalCustomers()
 	helper.Catch(err)
-
 	return &CustomerList{Data: customers, TotalRecords: totalCustomers}, nil
 }

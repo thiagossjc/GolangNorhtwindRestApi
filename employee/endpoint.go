@@ -52,6 +52,13 @@ type deleteEmployeeRequest struct {
 	EmployeeId string
 }
 
+// @Summary Lista de Empleados
+// @Tags Employees
+// @Accept json
+// @Produce json
+// @Param request body employee.getEmployeesRequest true "User Data"
+// @Success 200 {object} employee.EmployeeList "ok"
+// @Router /employees/paginated [post]
 func MakeGetEmployeesEndPoint(s Service) endpoint.Endpoint {
 	getEmployessEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(getEmployeesRequest)
@@ -62,6 +69,13 @@ func MakeGetEmployeesEndPoint(s Service) endpoint.Endpoint {
 	return getEmployessEndPoint
 }
 
+// @Summary Empleado By Id
+// @Tags Employees
+// @Accept json
+// @Produce json
+// @Param id path int true "Employee Id"
+// @Success 200 {object} employee.Employee "ok"
+// @Router /employees/{id} [get]
 func makeGetEmployeeByIdEndPoint(s Service) endpoint.Endpoint {
 	getEmployeeByIdEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(getEmployeeByIDRequest)
@@ -72,9 +86,14 @@ func makeGetEmployeeByIdEndPoint(s Service) endpoint.Endpoint {
 	return getEmployeeByIdEndPoint
 }
 
+// @Summary Mejor Empleado
+// @Tags Employees
+// @Accept json
+// @Produce json
+// @Success 200 {object} employee.BestEmployee "ok"
+// @Router /employees/best [get]
 func MakeGetBestEmployeeEndPoint(s Service) endpoint.Endpoint {
 	getBestEmployeeEndPoint := func(_ context.Context, _ interface{}) (interface{}, error) {
-
 		result, err := s.GetBestEmployee()
 		helper.Catch(err)
 		return result, nil

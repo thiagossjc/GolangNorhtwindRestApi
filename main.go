@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/GolangNorhtwindRestApi/customer"
@@ -19,11 +20,15 @@ import (
 // @version 1.0
 // @description APIs desarrolladas en Golang para el Sistema Goolivery Provider
 // @contact.name API Support (Thiago Mota)
-// @contact.url http://gooliveryprovider
+// @contact.url http://engrenelog.com/es/
 // @contact.email thiago@engrenelog.com
-
 func main() {
-	databaseConnection := database.InitDB()
+	databaseConnection, err := database.InitDB()
+	if err == nil {
+		fmt.Println("Conexão con el Banco de Dados ok!")
+	} else {
+		fmt.Println(err)
+	}
 	defer databaseConnection.Close()
 
 	var (
@@ -49,6 +54,8 @@ func main() {
 	r.Mount("/customers", customer.MakeHttpHandler(customerService))
 	r.Mount("/orders", order.MakeHttpHandler(orderService))
 
-	r.Get("/swagger/*", httpSwagger.Handler(httpSwagger.URL("../swagger/doc.json")))
+	r.Get("/swagger/*", httpSwagger.Handler(
+		httpSwagger.URL("../swagger/doc.json"),
+	))
 	http.ListenAndServe(":3000", r)
 }

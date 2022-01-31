@@ -28,4 +28,9 @@ func getCustomersRequestDecoder(_ context.Context, r *http.Request) (interface{}
 	err := json.NewDecoder(r.Body).Decode(&request)
 	helper.Catch(err)
 	return request, nil
+
+	//	request := getCustomersRequest{}
+	//	err := json.NewDecoder(r.Body).Decode(&request)
+	//	helper.Catch(err)
+	//	return request, nil
 }

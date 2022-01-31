@@ -12,6 +12,7 @@ import (
 
 func MakeHttpHandler(s Service) http.Handler {
 	r := chi.NewRouter()
+
 	getEmployesHandler := kithttp.NewServer(MakeGetEmployeesEndPoint(s), getEmployeesRequestDecoder,
 		kithttp.EncodeJSONResponse)
 	r.Method(http.MethodPost, "/paginated", getEmployesHandler)
@@ -30,7 +31,7 @@ func MakeHttpHandler(s Service) http.Handler {
 
 	UpdateEmployeeHandler := kithttp.NewServer(makeUpdateEmployeeEndPoint(s), getUpdateEmployeeRequestDecoder,
 		kithttp.EncodeJSONResponse)
-	r.Method(http.MethodPost, "/", UpdateEmployeeHandler)
+	r.Method(http.MethodPut, "/", UpdateEmployeeHandler)
 
 	DeleteEmployeeHandler := kithttp.NewServer(makeDeleteEmployeeEndPoint(s), getDeleteEmployeeRequestDecoder,
 		kithttp.EncodeJSONResponse)

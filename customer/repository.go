@@ -22,7 +22,8 @@ func NewRepository(db *sql.DB) Repository {
 }
 
 func (repo *repository) GetCustomers(param *getCustomersRequest) ([]*Customer, error) {
-	const sql = `SELECT id,
+	const sql = `SELECT
+				 id,
 				 first_name,
 				 last_name,
 				 address,

@@ -179,7 +179,8 @@ func (repo *repository) UpdateEmployee(params *updateEmployeeRequest) (int64, er
 		params.FaxNumber,
 		params.HomePhone,
 		params.JobTitle,
-		params.MobilePhone)
+		params.MobilePhone,
+		params.Id)
 
 	helper.Catch(err)
 	id, _ := result.LastInsertId()

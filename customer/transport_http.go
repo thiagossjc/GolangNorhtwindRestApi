@@ -16,15 +16,11 @@ func MakeHttpHandler(s Service) http.Handler {
 	getCustomersHandler := kithttp.NewServer(makeGetCustomersEndPoint(s), getCustomersRequestDecoder,
 		kithttp.EncodeJSONResponse)
 	r.Method(http.MethodPost, "/paginated", getCustomersHandler)
-
 	return r
 }
 
 func getCustomersRequestDecoder(_ context.Context, r *http.Request) (interface{}, error) {
-	request := getCustomersRequest{
-		Limit:  0,
-		Offset: 0,
-	}
+	request := getCustomersRequest{}
 	err := json.NewDecoder(r.Body).Decode(&request)
 	helper.Catch(err)
 	return request, nil

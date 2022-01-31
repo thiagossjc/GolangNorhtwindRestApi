@@ -77,12 +77,153 @@ definitions:
       totalRecords:
         type: integer
     type: object
+  employee.addEmployeeRequest:
+    properties:
+      address:
+        type: string
+      business:
+        type: string
+      businessPhone:
+        type: string
+      company:
+        type: string
+      emailAddress:
+        type: string
+      faxNumber:
+        type: string
+      firstName:
+        type: string
+      homePhone:
+        type: string
+      jobTitle:
+        type: string
+      lastName:
+        type: string
+      mobilePhone:
+        type: string
+    type: object
   employee.getEmployeesRequest:
     properties:
       limit:
         type: integer
       offset:
         type: integer
+    type: object
+  employee.updateEmployeeRequest:
+    properties:
+      address:
+        type: string
+      business:
+        type: string
+      businessPhone:
+        type: string
+      company:
+        type: string
+      emailAddress:
+        type: string
+      faxNumber:
+        type: string
+      firstName:
+        type: string
+      homePhone:
+        type: string
+      id:
+        type: integer
+      jobTitle:
+        type: string
+      lastName:
+        type: string
+      mobilePhone:
+        type: string
+    type: object
+  order.OrderDetailItem:
+    properties:
+      id:
+        type: integer
+      order_id:
+        type: integer
+      product_id:
+        type: integer
+      product_name:
+        type: string
+      quantity:
+        type: number
+      unit_price:
+        type: number
+    type: object
+  order.OrderItem:
+    properties:
+      address:
+        type: string
+      city:
+        type: string
+      company:
+        type: string
+      customer:
+        type: string
+      customerId:
+        type: integer
+      data:
+        items:
+          $ref: '#/definitions/order.OrderDetailItem'
+        type: array
+      orderDate:
+        type: string
+      orderID:
+        type: integer
+      orderName:
+        type: string
+      phone:
+        type: string
+      statusId:
+        type: string
+    type: object
+  order.OrderList:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/order.OrderItem'
+        type: array
+      totlRecords:
+        type: integer
+    type: object
+  order.addOrderDetailRequest:
+    properties:
+      id:
+        description: Vamos utilizalas para el update acrescentando la variable ID
+        type: integer
+      orderId:
+        type: integer
+      productId:
+        type: integer
+      quantity:
+        type: integer
+      unitPrice:
+        type: number
+    type: object
+  order.addOrderRequest:
+    properties:
+      customerId:
+        type: integer
+      id:
+        description: Vamos utilizalas para el update acrescentando la variable ID
+        type: integer
+      orderDate:
+        type: string
+      orderDetails:
+        items:
+          $ref: '#/definitions/order.addOrderDetailRequest'
+        type: array
+    type: object
+  order.getOrdersRequest:
+    properties:
+      dateFrom: {}
+      dateTo: {}
+      limit:
+        type: integer
+      offset:
+        type: integer
+      status: {}
     type: object
   product.Product:
     properties:
@@ -119,12 +260,44 @@ definitions:
       vendidos:
         type: number
     type: object
+  product.getAddProductRequest:
+    properties:
+      category:
+        type: string
+      description:
+        type: string
+      listPrice:
+        type: string
+      productCode:
+        type: string
+      productName:
+        type: string
+      standardCost:
+        type: string
+    type: object
   product.getProductsRequest:
     properties:
       limit:
         type: integer
       offset:
         type: integer
+    type: object
+  product.updateProductRequest:
+    properties:
+      category:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      listPrice:
+        type: number
+      productCode:
+        type: string
+      productName:
+        type: string
+      standardCost:
+        type: number
     type: object
 info:
   contact:
@@ -156,7 +329,67 @@ paths:
       summary: Lista de Clientes
       tags:
       - Customers
+  /employees/:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/employee.addEmployeeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: integer
+      summary: Insertar Empleado
+      tags:
+      - Employees
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: User data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/employee.updateEmployeeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: integer
+      summary: Actualizar Empleado
+      tags:
+      - Employees
   /employees/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Employee ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: integer
+      summary: Eliminar Empleado
+      tags:
+      - Employees
     get:
       consumes:
       - application/json
@@ -211,6 +444,189 @@ paths:
       summary: Lista de Empleados
       tags:
       - Employees
+  /orders/:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/order.addOrderRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: integer
+      summary: Insertar Orden
+      tags:
+      - Orders
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: User data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/order.addOrderRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: integer
+      summary: Actualizar Orden
+      tags:
+      - Orders
+  /orders/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Order ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: integer
+      summary: Eliminar Orden
+      tags:
+      - Orders
+  /orders/{orderId}/detail/{orderDetailId}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Order Detail ID
+        in: path
+        name: orderDetailId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: integer
+      summary: Eliminar Detal de la Orden
+      tags:
+      - Orders
+  /orders/paginated:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/order.getOrdersRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/order.OrderList'
+      summary: Lista de Ordenes
+      tags:
+      - Orders
+  /orders{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Order Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/order.OrderItem'
+      summary: Order By Id
+      tags:
+      - Orders
+  /products/:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/product.getAddProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: integer
+      summary: Insertar Producto
+      tags:
+      - Products
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: User data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/product.updateProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: integer
+      summary: Actualizar Producto
+      tags:
+      - Products
+  /products/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Employee ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: integer
+      summary: Eliminar Producto
+      tags:
+      - Products
   /products/bestSellers:
     get:
       consumes:

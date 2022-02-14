@@ -119,10 +119,10 @@ func (repo repository) UpdateProduct(params *updateProductRequest) (int64, error
 				SET product_code = ?,
 					product_name = ?,
 					category = ?,
-					description=?,
-					list_price=?,
-					standard_cost=?
-					WHERE id=?`
+					description= ?,
+					list_price= ?,
+					standard_cost= ?
+					WHERE id= ?`
 	result, err := repo.db.Exec(sql,
 		params.ProductCode,
 		params.ProductName,

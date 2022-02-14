@@ -7,6 +7,7 @@ import (
 	"github.com/GolangNorhtwindRestApi/customer"
 	"github.com/GolangNorhtwindRestApi/database"
 	"github.com/GolangNorhtwindRestApi/employee"
+	"github.com/GolangNorhtwindRestApi/helper"
 	"github.com/GolangNorhtwindRestApi/order"
 	"github.com/GolangNorhtwindRestApi/product"
 
@@ -23,6 +24,16 @@ import (
 // @contact.url http://engrenelog.com/es/
 // @contact.email thiago@engrenelog.com
 func main() {
+
+	databasePGConnection, err:= database.InitDBPG()
+	if err== nil{
+			fmt.Println("Conexão con el Banco de Dados ok!")
+			} else {
+				fmt.Println(err)
+			}
+	}
+	defer databasePGConnection.Close()
+
 	databaseConnection, err := database.InitDB()
 	if err == nil {
 		fmt.Println("Conexão con el Banco de Dados ok!")
@@ -49,6 +60,8 @@ func main() {
 	orderService = order.NewService(orderRepository)
 
 	r := chi.NewRouter()
+	r.Use(helper.GetCors().Handler) //Invocanco CORSxº
+
 	r.Mount("/products", product.MakeHttpHandler(productService))
 	r.Mount("/employees", employee.MakeHttpHandler(employeeService))
 	r.Mount("/customers", customer.MakeHttpHandler(customerService))

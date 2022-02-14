@@ -66,14 +66,13 @@ request:{
     "address":"",
     "businessPhone":"",
     "company":"",
-    "emailAdreess":"",
+    "emailAddress":"",
     "faxNumber":"",
     "firstName":"",
     "lastName":"",
     "homePhone":"",
     "jobTitle":"",
     "mobilePhone":""
-
 }
 
 response:

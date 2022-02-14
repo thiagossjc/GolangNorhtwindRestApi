@@ -6,7 +6,7 @@ import (
 	"github.com/GolangNorhtwindRestApi/helper"
 )
 
-type Respository interface {
+type Repository interface {
 	GetEmployees(params *getEmployeesRequest) ([]*Employee, error)
 	GetTotalEmployees() (int64, error)
 	GetEmployeeById(params *getEmployeeByIDRequest) (*Employee, error)
@@ -20,7 +20,7 @@ type repository struct {
 	db *sql.DB
 }
 
-func NewRepository(db *sql.DB) Respository {
+func NewRepository(db *sql.DB) Repository {
 	return &repository{
 		db: db,
 	}

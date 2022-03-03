@@ -1,4 +1,5 @@
 module github.com/GoGooliveryProviderAPI
+
 go 1.17
 
 require (
@@ -44,6 +45,7 @@ require (
 	golang.org/x/sys v0.0.0-20220114195835-da31bd327af9 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/tools v0.1.9 // indirect
+	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gorm.io/gorm v1.23.2 // indirect
 )
@@ -52,5 +54,6 @@ require (
 	github.com/go-chi/chi v1.5.4
 	github.com/go-kit/log v0.2.0 // indirect
 	github.com/go-logfmt/logfmt v0.5.1 // indirect
+	github.com/golang/protobuf v1.5.2
 	gorm.io/driver/postgres v1.3.1
 )

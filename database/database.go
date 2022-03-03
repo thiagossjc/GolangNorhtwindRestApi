@@ -42,7 +42,7 @@ func InitDBPG() (*sql.DB, error) {
 //Connect DB to Posgresql
 func InitDbPgGorm() (*gorm.DB, error) {
 
-	dsn := "host=localhost user=postgres password=1234567 dbname=goolivery_provider port=5432 sslmode=disable TimeZone=Europa/Madrid"
+	dsn := "host=localhost user=postgres password=1234567 dbname=goolivery_provider port=5432 sslmode=disable TimeZone=Europe/Madrid"
 	DB, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	helper.Catch(err)
 	return DB, err

@@ -7,10 +7,12 @@ import (
 	"github.com/GoGooliveryProviderAPI/customer"
 	"github.com/GoGooliveryProviderAPI/database"
 	"github.com/GoGooliveryProviderAPI/employee"
+	"github.com/GoGooliveryProviderAPI/event"
 	"github.com/GoGooliveryProviderAPI/helper"
 	"github.com/GoGooliveryProviderAPI/order"
 	"github.com/GoGooliveryProviderAPI/product"
 	"github.com/GoGooliveryProviderAPI/status"
+	"github.com/GoGooliveryProviderAPI/user"
 
 	_ "github.com/GoGooliveryProviderAPI/docs"
 	"github.com/go-chi/chi/v5"
@@ -57,6 +59,8 @@ func main() {
 		customerRepository = customer.NewRepository(databaseConnection)
 		orderRepository    = order.NewRepository(databaseConnection)
 		statusRepository   = status.NewRepository(databasePGGormConnection)
+		eventsRepository   = event.NewRepository(databasePGGormConnection)
+		userRepository     = user.NewRepository(databasePGGormConnection)
 	)
 	var (
 		productService  product.Service
@@ -64,12 +68,16 @@ func main() {
 		customerService customer.Service
 		orderService    order.Service
 		statusService   status.Service
+		eventsService   event.Service
+		userService     user.Service
 	)
 	productService = product.NewService(productRepository)
 	employeeService = employee.NewService(employeeRepository)
 	customerService = customer.NewService(customerRepository)
 	orderService = order.NewService(orderRepository)
 	statusService = status.NewService(statusRepository)
+	eventsService = event.NewService(eventsRepository)
+	userService = user.NewService(userRepository)
 
 	r := chi.NewRouter()
 	r.Use(helper.GetCors().Handler) //Invocanco CORSxº
@@ -78,7 +86,9 @@ func main() {
 	r.Mount("/employees", employee.MakeHttpHandler(employeeService))
 	r.Mount("/customers", customer.MakeHttpHandler(customerService))
 	r.Mount("/orders", order.MakeHttpHandler(orderService))
-	r.Mount("status", status.MakeHttpHandler(statusService))
+	r.Mount("/status", status.MakeHttpHandler(statusService))
+	r.Mount("/events", event.MakeHttpHandler(eventsService))
+	r.Mount("/users", user.MakeHttpHandler(userService))
 
 	r.Get("/swagger/*", httpSwagger.Handler(
 		httpSwagger.URL("../swagger/doc.json"),

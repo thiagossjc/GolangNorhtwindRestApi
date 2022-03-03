@@ -1,5 +1,12 @@
 package request
 
+import (
+	"context"
+
+	"github.com/GolangNorhtwindRestApi/helper"
+	"github.com/go-kit/kit/endpoint"
+)
+
 type getRequestBYIDRequest struct {
 	RequestID int
 	Country   string
@@ -65,10 +72,10 @@ type cancelRequestOrderRequest struct {
 // @Param id path int true "Order Id"
 // @Success 200 {object} order.OrderItem "ok"
 // @Router /orders{id} [get]
-/*func makeGetOrderByIdEndpoint(s Service) endpoint.Endpoint {
+func makeGetOrderByIdEndpoint(s Service) endpoint.Endpoint {
 	getOrderByIdEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
-		req := request.(getOrderByIdRequest)
-		result, err := s.GetOrderById(&req)
+		req := request.(getRequestBYIDRequest)
+		result, err := s.GetRequestOrderById(&req)
 		helper.Catch(err)
 		return result, nil
 	}
@@ -84,8 +91,8 @@ type cancelRequestOrderRequest struct {
 // @Router /orders/paginated [post]
 func makeGetOrdersEndpoint(s Service) endpoint.Endpoint {
 	getOrdersEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
-		req := request.(getOrdersRequest)
-		result, err := s.GetOrders(&req)
+		req := request.(getRequestsRequest)
+		result, err := s.GetRequestsOrders(&req)
 		helper.Catch(err)
 		return result, nil
 	}
@@ -101,8 +108,8 @@ func makeGetOrdersEndpoint(s Service) endpoint.Endpoint {
 // @Router /orders/ [post]
 func makeAddOrderEndpoint(s Service) endpoint.Endpoint {
 	addOrderEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
-		req := request.(addOrderRequest)
-		result, err := s.InsertOrder(&req)
+		req := request.(addRequestOrderRequest)
+		result, err := s.InsertRequestOrder(&req)
 		helper.Catch(err)
 		return result, nil
 	}
@@ -118,8 +125,8 @@ func makeAddOrderEndpoint(s Service) endpoint.Endpoint {
 // @Router /orders/ [put]
 func makeUpdateOrderEndpoint(s Service) endpoint.Endpoint {
 	updateOrderEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
-		req := request.(addOrderRequest)
-		result, err := s.UpdateOrder(&req)
+		req := request.(updateRequestOrderRequest)
+		result, err := s.UpdateRequestOrder(&req)
 		helper.Catch(err)
 		return result, nil
 	}
@@ -135,7 +142,7 @@ func makeUpdateOrderEndpoint(s Service) endpoint.Endpoint {
 // @Router /orders/{orderId}/detail/{orderDetailId} [delete]
 func makeDeleteOrderDetailEndpoint(s Service) endpoint.Endpoint {
 	deleteOrderDetailEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
-		req := request.(deleteOrderDetailRequest)
+		req := request.(cancelRequestOrderRequest)
 		result, err := s.DeleteOrderDetail(&req)
 		helper.Catch(err)
 		return result, nil
@@ -152,13 +159,10 @@ func makeDeleteOrderDetailEndpoint(s Service) endpoint.Endpoint {
 // @Router /orders/{id} [delete]
 func makeDeleteOrderEndpoint(s Service) endpoint.Endpoint {
 	deleteOrderEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
-		req := request.(deleteOrderRequest)
-		result, err := s.DeleteOrder(&req)
+		req := request.(cancelRequestOrderRequest)
+		result, err := s.CancelRequestOrder(&req)
 		helper.Catch(err)
 		return result, nil
 	}
 	return deleteOrderEndPoint
 }
-
-/*
-

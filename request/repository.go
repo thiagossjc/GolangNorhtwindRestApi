@@ -3,13 +3,15 @@ package request
 import (
 	"database/sql"
 
+	_ "github.com/lib/pq"
+
 	"github.com/GolangNorhtwindRestApi/helper"
 )
 
 type Repository interface {
 	GetRequestsOrders(params *getRequestsRequest) ([]*RequestOrder, error)
 	GetTotalRequestsOrders() (int64, error)
-	GetRequestById(params *getRequestBYIDRequest) (*RequestOrder, error)
+	GetRequestOrderById(params *getRequestBYIDRequest) (*RequestOrder, error)
 	InsertRequestOrder(params *addRequestOrderRequest) (int64, error)
 	UpdateRequestOrder(params *updateRequestOrderRequest) (int64, error)
 	CancelRequestOrder(params *cancelRequestOrderRequest) (int64, error)
@@ -21,10 +23,10 @@ type repository struct {
 
 func NewRepository(db *sql.DB) Repository {
 	return &repository{
-		db: db}
+		db: db,
+	}
 }
-
-func (repo *repository) GetRequestsOrder(params *getRequestsRequest) ([]*RequestOrder, error) {
+func (repo *repository) GetRequestsOrders(params *getRequestsRequest) ([]*RequestOrder, error) {
 	const sql = `SELECT
 	re.id,
 	re.id_customer as id_customer,
@@ -76,7 +78,7 @@ func (repo *repository) GetTotalRequestsOrders() (int64, error) {
 	return total, nil
 }
 
-func (repo *repository) GetRequestsOrdersById(params *getRequestBYIDRequest) (*RequestOrder, error) {
+func (repo *repository) GetRequestOrderById(params *getRequestBYIDRequest) (*RequestOrder, error) {
 	const sql = `SELECT re.id, 
 	re.id_customer,
 	ce.fantasy_name as customer,
@@ -144,7 +146,7 @@ func (repo *repository) GetRequestsOrdersById(params *getRequestBYIDRequest) (*R
 	return requestOrder, nil
 }
 
-func (repo *repository) InsertResquestOrder(params *addRequestOrderRequest) (int64, error) {
+func (repo *repository) InsertRequestOrder(params *addRequestOrderRequest) (int64, error) {
 	const sql = `INSERT INTO goolivery_provider_customer.orders_requests(
 		id_supplier,
 		id_supplier,

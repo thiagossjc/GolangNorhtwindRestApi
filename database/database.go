@@ -6,6 +6,9 @@ import (
 
 	"github.com/GolangNorhtwindRestApi/helper"
 	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/lib/pq"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 	//_ "github.com/go-sql-driver/mariadb"
 )
 
@@ -34,4 +37,13 @@ func InitDBPG() (*sql.DB, error) {
 
 	helper.Catch(err)
 	return databaseConnection, err
+}
+
+//Connect DB to Posgresql
+func InitDbPgGorm() (*gorm.DB, error) {
+
+	dsn := "host=localhost user=postgres password=1234567 dbname=goolivery_provider port=5432 sslmode=disable TimeZone=Europa/Madrid"
+	DB, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	helper.Catch(err)
+	return DB, err
 }

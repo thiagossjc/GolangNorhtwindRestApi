@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/GolangNorhtwindRestApi/helper"
+	"github.com/GoGooliveryProviderAPI/helper"
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/lib/pq"
 	"gorm.io/driver/postgres"

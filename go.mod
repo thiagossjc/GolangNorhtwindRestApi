@@ -1,5 +1,4 @@
-module github.com/GolangNorhtwindRestApi
-
+module github.com/GoGooliveryProviderAPI
 go 1.17
 
 require (

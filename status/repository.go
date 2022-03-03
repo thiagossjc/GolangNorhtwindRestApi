@@ -1,7 +1,7 @@
 package status
 
 import (
-	"github.com/GolangNorhtwindRestApi/helper"
+	"github.com/GoGooliveryProviderAPI/helper"
 	"gorm.io/gorm"
 )
 

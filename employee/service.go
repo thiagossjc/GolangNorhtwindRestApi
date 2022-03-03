@@ -1,6 +1,6 @@
 package employee
 
-import "github.com/GolangNorhtwindRestApi/helper"
+import "github.com/GoGooliveryProviderAPI/helper"
 
 type Service interface {
 	getEmployees(params *getEmployeesRequest) (*EmployeeList, error)

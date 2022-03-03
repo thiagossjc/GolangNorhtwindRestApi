@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/GolangNorhtwindRestApi/helper"
+	"github.com/GoGooliveryProviderAPI/helper"
 	"github.com/go-chi/chi"
 	kithttp "github.com/go-kit/kit/transport/http"
 )

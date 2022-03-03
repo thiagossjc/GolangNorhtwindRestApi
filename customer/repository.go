@@ -3,7 +3,7 @@ package customer
 import (
 	"database/sql"
 
-	"github.com/GolangNorhtwindRestApi/helper"
+	"github.com/GoGooliveryProviderAPI/helper"
 )
 
 type Repository interface {

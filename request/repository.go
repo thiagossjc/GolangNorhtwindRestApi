@@ -3,9 +3,8 @@ package request
 import (
 	"database/sql"
 
+	"github.com/GoGooliveryProviderAPI/helper"
 	_ "github.com/lib/pq"
-
-	"github.com/GolangNorhtwindRestApi/helper"
 )
 
 type Repository interface {

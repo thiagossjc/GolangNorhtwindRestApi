@@ -1,6 +1,6 @@
 package status
 
-import "github.com/GolangNorhtwindRestApi/helper"
+import "github.com/GoGooliveryProviderAPI/helper"
 
 type Service interface {
 	GetStatus(params *getStatusRequest) (*StatusList, error)

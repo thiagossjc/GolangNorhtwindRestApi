@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/GolangNorhtwindRestApi/helper"
+	"github.com/GoGooliveryProviderAPI/helper"
 	"github.com/go-chi/chi/v5"
 	kithttp "github.com/go-kit/kit/transport/http"
 )

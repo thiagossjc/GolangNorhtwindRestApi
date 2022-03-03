@@ -1,6 +1,6 @@
 package customer
 
-import "github.com/GolangNorhtwindRestApi/helper"
+import "github.com/GoGooliveryProviderAPI/helper"
 
 type Service interface {
 	GetCustomers(param *getCustomersRequest) (*CustomerList, error)

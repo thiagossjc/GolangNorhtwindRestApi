@@ -1,6 +1,6 @@
 package product
 
-import "github.com/GolangNorhtwindRestApi/helper"
+import "github.com/GoGooliveryProviderAPI/helper"
 
 type Service interface {
 	GetProductoById(param *getProductBYIDRequest) (*Product, error)

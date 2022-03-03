@@ -1,6 +1,6 @@
 package order
 
-import "github.com/GolangNorhtwindRestApi/helper"
+import "github.com/GoGooliveryProviderAPI/helper"
 
 type Service interface {
 	GetOrderById(params *getOrderByIdRequest) (*OrderItem, error)

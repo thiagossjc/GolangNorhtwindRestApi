@@ -3,7 +3,7 @@ package customer
 import (
 	"context"
 
-	"github.com/GolangNorhtwindRestApi/helper"
+	"github.com/GoGooliveryProviderAPI/helper"
 	"github.com/go-kit/kit/endpoint"
 )
 

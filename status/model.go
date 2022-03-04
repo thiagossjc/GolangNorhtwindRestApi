@@ -1,12 +1,7 @@
 package status
 
-import (
-	"gorm.io/gorm"
-)
-
 type Status struct {
-	gorm.Model
-	Id                  int32  `json:"id"`
+	Id                  int32  `json:"id" gorm:"primary_key"`
 	Description         string `json:"description"`
 	UserReg             int64  `json:"userReg"`
 	DateReg             string `json:"dataReg"`

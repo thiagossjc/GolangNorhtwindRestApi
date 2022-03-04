@@ -223,6 +223,163 @@
                 }
             }
         },
+        "/events/": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Actualizar Events",
+                "parameters": [
+                    {
+                        "description": "User data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/event.updateEventRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Insertar Event",
+                "parameters": [
+                    {
+                        "description": "User data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/event.addEventRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "/events/paginated": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Lista de Eventos",
+                "parameters": [
+                    {
+                        "description": "User Data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/event.getEventsRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "$ref": "#/definitions/event.EventList"
+                        }
+                    }
+                }
+            }
+        },
+        "/events/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Event By Id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Event Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "$ref": "#/definitions/event.Event"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Cancelar Events",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Events ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
         "/orders/": {
             "put": {
                 "consumes": [
@@ -562,6 +719,287 @@
                     }
                 }
             }
+        },
+        "/status/": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Status"
+                ],
+                "summary": "Actualizar Status",
+                "parameters": [
+                    {
+                        "description": "User data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/status.updateStatusRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Status"
+                ],
+                "summary": "Insertar Status",
+                "parameters": [
+                    {
+                        "description": "User data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/status.addStatusRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "/status/paginated": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Status"
+                ],
+                "summary": "Lista de Status",
+                "parameters": [
+                    {
+                        "description": "User Data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/status.getStatusRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "$ref": "#/definitions/status.StatusList"
+                        }
+                    }
+                }
+            }
+        },
+        "/status/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Status"
+                ],
+                "summary": "Status By Id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Status Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "$ref": "#/definitions/status.Status"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Status"
+                ],
+                "summary": "Cancelar Status",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Status ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Actualizar Users",
+                "parameters": [
+                    {
+                        "description": "User data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.updateUserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Insertar User",
+                "parameters": [
+                    {
+                        "description": "User data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.addUserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "User By User",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "User Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "$ref": "#/definitions/user.User"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Cancelar User",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -772,6 +1210,202 @@
                 },
                 "mobilePhone": {
                     "type": "string"
+                }
+            }
+        },
+        "event.Event": {
+            "type": "object",
+            "properties": {
+                "cancel": {
+                    "type": "boolean"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "dtReg": {
+                    "type": "string"
+                },
+                "finisher": {
+                    "type": "boolean"
+                },
+                "goingTo": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "idPais": {
+                    "type": "integer"
+                },
+                "idStatus": {
+                    "type": "integer"
+                },
+                "inAttend": {
+                    "type": "boolean"
+                },
+                "inCustomer": {
+                    "type": "boolean"
+                },
+                "inLogOper": {
+                    "type": "boolean"
+                },
+                "inPacking": {
+                    "type": "boolean"
+                },
+                "inPicking": {
+                    "type": "boolean"
+                },
+                "inSupplier": {
+                    "type": "boolean"
+                },
+                "onExpedition": {
+                    "type": "boolean"
+                },
+                "success": {
+                    "type": "boolean"
+                },
+                "traffic": {
+                    "type": "boolean"
+                },
+                "userReg": {
+                    "type": "integer"
+                }
+            }
+        },
+        "event.EventList": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/event.Event"
+                    }
+                }
+            }
+        },
+        "event.addEventRequest": {
+            "type": "object",
+            "properties": {
+                "cancel": {
+                    "type": "boolean"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "finisher": {
+                    "type": "boolean"
+                },
+                "going_to": {
+                    "type": "string"
+                },
+                "idCountry": {
+                    "type": "integer"
+                },
+                "idStatus": {
+                    "type": "integer"
+                },
+                "inAttend": {
+                    "type": "boolean"
+                },
+                "inCustommer": {
+                    "type": "boolean"
+                },
+                "inLogisticOperation": {
+                    "type": "boolean"
+                },
+                "inSupplier": {
+                    "type": "boolean"
+                },
+                "onExpedition": {
+                    "type": "boolean"
+                },
+                "onPacking": {
+                    "type": "boolean"
+                },
+                "onPicking": {
+                    "type": "boolean"
+                },
+                "success": {
+                    "type": "boolean"
+                },
+                "traffic": {
+                    "type": "boolean"
+                },
+                "userReg": {
+                    "type": "integer"
+                }
+            }
+        },
+        "event.getEventsRequest": {
+            "type": "object",
+            "properties": {
+                "countryId": {
+                    "type": "integer"
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "type": "integer"
+                }
+            }
+        },
+        "event.updateEventRequest": {
+            "type": "object",
+            "properties": {
+                "cancel": {
+                    "type": "boolean"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "dtReg": {
+                    "type": "string"
+                },
+                "finisher": {
+                    "type": "boolean"
+                },
+                "going_to": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "idPais": {
+                    "type": "integer"
+                },
+                "idStatus": {
+                    "type": "integer"
+                },
+                "inAttend": {
+                    "type": "boolean"
+                },
+                "inCustommer": {
+                    "type": "boolean"
+                },
+                "inLogisticOperation": {
+                    "type": "boolean"
+                },
+                "inSupplier": {
+                    "type": "boolean"
+                },
+                "onExpedition": {
+                    "type": "boolean"
+                },
+                "onPacking": {
+                    "type": "boolean"
+                },
+                "onPicking": {
+                    "type": "boolean"
+                },
+                "success": {
+                    "type": "boolean"
+                },
+                "traffic": {
+                    "type": "boolean"
+                },
+                "userReg": {
+                    "type": "integer"
                 }
             }
         },
@@ -1020,6 +1654,301 @@
                 },
                 "standardCost": {
                     "type": "number"
+                }
+            }
+        },
+        "status.Status": {
+            "type": "object",
+            "properties": {
+                "cancel": {
+                    "type": "boolean"
+                },
+                "dataReg": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "goigTo": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "idCountry": {
+                    "type": "integer"
+                },
+                "inAttend": {
+                    "type": "boolean"
+                },
+                "inCustomer": {
+                    "type": "boolean"
+                },
+                "inLogisticOperation": {
+                    "type": "boolean"
+                },
+                "inSupplier": {
+                    "type": "boolean"
+                },
+                "onExpedition": {
+                    "type": "boolean"
+                },
+                "onPacking": {
+                    "type": "boolean"
+                },
+                "onPicking": {
+                    "type": "boolean"
+                },
+                "success": {
+                    "type": "boolean"
+                },
+                "traffic": {
+                    "type": "boolean"
+                },
+                "userReg": {
+                    "type": "integer"
+                }
+            }
+        },
+        "status.StatusList": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/status.Status"
+                    }
+                }
+            }
+        },
+        "status.addStatusRequest": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "goingTo": {
+                    "type": "string"
+                },
+                "idCountry": {
+                    "type": "integer"
+                },
+                "inAttend": {
+                    "type": "boolean"
+                },
+                "inCustomer": {
+                    "type": "boolean"
+                },
+                "inLogisticOperation": {
+                    "type": "boolean"
+                },
+                "inSupplier": {
+                    "type": "boolean"
+                },
+                "onExpedition": {
+                    "type": "boolean"
+                },
+                "onPacking": {
+                    "type": "boolean"
+                },
+                "onPicking": {
+                    "type": "boolean"
+                },
+                "success": {
+                    "type": "boolean"
+                },
+                "traffic": {
+                    "type": "boolean"
+                },
+                "usereReg": {
+                    "type": "integer"
+                }
+            }
+        },
+        "status.getStatusRequest": {
+            "type": "object",
+            "properties": {
+                "countryId": {
+                    "type": "integer"
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "type": "integer"
+                }
+            }
+        },
+        "status.updateStatusRequest": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "goingTo": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "idCountry": {
+                    "type": "integer"
+                },
+                "inAttend": {
+                    "type": "boolean"
+                },
+                "inCustomer": {
+                    "type": "boolean"
+                },
+                "inLogisticOperation": {
+                    "type": "boolean"
+                },
+                "inSupplier": {
+                    "type": "boolean"
+                },
+                "onExpedition": {
+                    "type": "boolean"
+                },
+                "onPacking": {
+                    "type": "boolean"
+                },
+                "onPicking": {
+                    "type": "boolean"
+                },
+                "success": {
+                    "type": "boolean"
+                },
+                "traffic": {
+                    "type": "boolean"
+                },
+                "usereReg": {
+                    "type": "integer"
+                }
+            }
+        },
+        "user.User": {
+            "type": "object",
+            "properties": {
+                "cancel": {
+                    "type": "boolean"
+                },
+                "celphone": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "docState": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "idCancel": {
+                    "type": "integer"
+                },
+                "idUser": {
+                    "type": "integer"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "login": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "user.addUserRequest": {
+            "type": "object",
+            "properties": {
+                "cancel": {
+                    "type": "boolean"
+                },
+                "celPhone": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "docState": {
+                    "type": "string"
+                },
+                "dtReg": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "idCancel": {
+                    "type": "integer"
+                },
+                "idUser": {
+                    "type": "integer"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "login": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "user.updateUserRequest": {
+            "type": "object",
+            "properties": {
+                "cancel": {
+                    "type": "boolean"
+                },
+                "celPhone": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "docState": {
+                    "type": "string"
+                },
+                "dtReg": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "idCancel": {
+                    "type": "integer"
+                },
+                "idUser": {
+                    "type": "integer"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "login": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
                 }
             }
         }

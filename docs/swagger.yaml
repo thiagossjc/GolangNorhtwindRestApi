@@ -136,6 +136,135 @@ definitions:
       mobilePhone:
         type: string
     type: object
+  event.Event:
+    properties:
+      cancel:
+        type: boolean
+      description:
+        type: string
+      dtReg:
+        type: string
+      finisher:
+        type: boolean
+      goingTo:
+        type: string
+      id:
+        type: integer
+      idPais:
+        type: integer
+      idStatus:
+        type: integer
+      inAttend:
+        type: boolean
+      inCustomer:
+        type: boolean
+      inLogOper:
+        type: boolean
+      inPacking:
+        type: boolean
+      inPicking:
+        type: boolean
+      inSupplier:
+        type: boolean
+      onExpedition:
+        type: boolean
+      success:
+        type: boolean
+      traffic:
+        type: boolean
+      userReg:
+        type: integer
+    type: object
+  event.EventList:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/event.Event'
+        type: array
+    type: object
+  event.addEventRequest:
+    properties:
+      cancel:
+        type: boolean
+      description:
+        type: string
+      finisher:
+        type: boolean
+      going_to:
+        type: string
+      idCountry:
+        type: integer
+      idStatus:
+        type: integer
+      inAttend:
+        type: boolean
+      inCustommer:
+        type: boolean
+      inLogisticOperation:
+        type: boolean
+      inSupplier:
+        type: boolean
+      onExpedition:
+        type: boolean
+      onPacking:
+        type: boolean
+      onPicking:
+        type: boolean
+      success:
+        type: boolean
+      traffic:
+        type: boolean
+      userReg:
+        type: integer
+    type: object
+  event.getEventsRequest:
+    properties:
+      countryId:
+        type: integer
+      limit:
+        type: integer
+      offset:
+        type: integer
+    type: object
+  event.updateEventRequest:
+    properties:
+      cancel:
+        type: boolean
+      description:
+        type: string
+      dtReg:
+        type: string
+      finisher:
+        type: boolean
+      going_to:
+        type: string
+      id:
+        type: integer
+      idPais:
+        type: integer
+      idStatus:
+        type: integer
+      inAttend:
+        type: boolean
+      inCustommer:
+        type: boolean
+      inLogisticOperation:
+        type: boolean
+      inSupplier:
+        type: boolean
+      onExpedition:
+        type: boolean
+      onPacking:
+        type: boolean
+      onPicking:
+        type: boolean
+      success:
+        type: boolean
+      traffic:
+        type: boolean
+      userReg:
+        type: integer
+    type: object
   order.OrderDetailItem:
     properties:
       id:
@@ -299,6 +428,200 @@ definitions:
       standardCost:
         type: number
     type: object
+  status.Status:
+    properties:
+      cancel:
+        type: boolean
+      dataReg:
+        type: string
+      description:
+        type: string
+      goigTo:
+        type: string
+      id:
+        type: integer
+      idCountry:
+        type: integer
+      inAttend:
+        type: boolean
+      inCustomer:
+        type: boolean
+      inLogisticOperation:
+        type: boolean
+      inSupplier:
+        type: boolean
+      onExpedition:
+        type: boolean
+      onPacking:
+        type: boolean
+      onPicking:
+        type: boolean
+      success:
+        type: boolean
+      traffic:
+        type: boolean
+      userReg:
+        type: integer
+    type: object
+  status.StatusList:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/status.Status'
+        type: array
+    type: object
+  status.addStatusRequest:
+    properties:
+      description:
+        type: string
+      goingTo:
+        type: string
+      idCountry:
+        type: integer
+      inAttend:
+        type: boolean
+      inCustomer:
+        type: boolean
+      inLogisticOperation:
+        type: boolean
+      inSupplier:
+        type: boolean
+      onExpedition:
+        type: boolean
+      onPacking:
+        type: boolean
+      onPicking:
+        type: boolean
+      success:
+        type: boolean
+      traffic:
+        type: boolean
+      usereReg:
+        type: integer
+    type: object
+  status.getStatusRequest:
+    properties:
+      countryId:
+        type: integer
+      limit:
+        type: integer
+      offset:
+        type: integer
+    type: object
+  status.updateStatusRequest:
+    properties:
+      description:
+        type: string
+      goingTo:
+        type: string
+      id:
+        type: integer
+      idCountry:
+        type: integer
+      inAttend:
+        type: boolean
+      inCustomer:
+        type: boolean
+      inLogisticOperation:
+        type: boolean
+      inSupplier:
+        type: boolean
+      onExpedition:
+        type: boolean
+      onPacking:
+        type: boolean
+      onPicking:
+        type: boolean
+      success:
+        type: boolean
+      traffic:
+        type: boolean
+      usereReg:
+        type: integer
+    type: object
+  user.User:
+    properties:
+      cancel:
+        type: boolean
+      celphone:
+        type: string
+      country:
+        type: string
+      docState:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      id:
+        type: integer
+      idCancel:
+        type: integer
+      idUser:
+        type: integer
+      lastName:
+        type: string
+      login:
+        type: string
+      password:
+        type: string
+    type: object
+  user.addUserRequest:
+    properties:
+      cancel:
+        type: boolean
+      celPhone:
+        type: string
+      country:
+        type: string
+      docState:
+        type: string
+      dtReg:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      idCancel:
+        type: integer
+      idUser:
+        type: integer
+      lastName:
+        type: string
+      login:
+        type: string
+      password:
+        type: string
+    type: object
+  user.updateUserRequest:
+    properties:
+      cancel:
+        type: boolean
+      celPhone:
+        type: string
+      country:
+        type: string
+      docState:
+        type: string
+      dtReg:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      id:
+        type: integer
+      idCancel:
+        type: integer
+      idUser:
+        type: integer
+      lastName:
+        type: string
+      login:
+        type: string
+      password:
+        type: string
+    type: object
 info:
   contact:
     email: thiago@engrenelog.com
@@ -444,6 +767,107 @@ paths:
       summary: Lista de Empleados
       tags:
       - Employees
+  /events/:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/event.addEventRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: integer
+      summary: Insertar Event
+      tags:
+      - Events
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: User data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/event.updateEventRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: integer
+      summary: Actualizar Events
+      tags:
+      - Events
+  /events/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Events ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: integer
+      summary: Cancelar Events
+      tags:
+      - Events
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Event Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/event.Event'
+      summary: Event By Id
+      tags:
+      - Events
+  /events/paginated:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/event.getEventsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/event.EventList'
+      summary: Lista de Eventos
+      tags:
+      - Events
   /orders/:
     post:
       consumes:
@@ -662,4 +1086,185 @@ paths:
       summary: Lista de Productos paginada
       tags:
       - Products
+  /status/:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/status.addStatusRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: integer
+      summary: Insertar Status
+      tags:
+      - Status
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: User data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/status.updateStatusRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: integer
+      summary: Actualizar Status
+      tags:
+      - Status
+  /status/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Status ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: integer
+      summary: Cancelar Status
+      tags:
+      - Status
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Status Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/status.Status'
+      summary: Status By Id
+      tags:
+      - Status
+  /status/paginated:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/status.getStatusRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/status.StatusList'
+      summary: Lista de Status
+      tags:
+      - Status
+  /users/:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user.addUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: integer
+      summary: Insertar User
+      tags:
+      - Users
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: User data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user.updateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: integer
+      summary: Actualizar Users
+      tags:
+      - Users
+  /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: integer
+      summary: Cancelar User
+      tags:
+      - Users
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/user.User'
+      summary: User By User
+      tags:
+      - Users
 swagger: "2.0"

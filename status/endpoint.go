@@ -93,7 +93,7 @@ func makeGetStatusByIdEndPoint(s Service) endpoint.Endpoint {
 // @Tags Status
 // @Accept json
 // @Produce json
-// @Param request body employee.addStatusRequest true "User data"
+// @Param request body status.addStatusRequest true "User data"
 // @Success 200 {integer} int "ok"
 // @Router /status/ [post]
 func makeAddStatuEndPoint(s Service) endpoint.Endpoint {

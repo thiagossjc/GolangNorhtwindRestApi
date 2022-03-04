@@ -5,7 +5,6 @@ import (
 
 	"github.com/GoGooliveryProviderAPI/helper"
 	"github.com/go-kit/kit/endpoint"
-	"github.com/golang/protobuf/ptypes/timestamp"
 )
 
 type getEventsRequest struct {
@@ -23,7 +22,6 @@ type addEventRequest struct {
 	Description         string
 	IdStatus            int32
 	UserReg             int64
-	DtReg               timestamp.Timestamp
 	Cancel              bool
 	Success             bool
 	Traffic             bool
@@ -44,7 +42,7 @@ type updateEventRequest struct {
 	IdStatus            int32
 	Description         string
 	UserReg             int64
-	DtReg               timestamp.Timestamp
+	DtReg               string
 	Cancel              bool
 	Success             bool
 	Traffic             bool

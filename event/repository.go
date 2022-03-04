@@ -44,7 +44,6 @@ func (repo *repository) InsertEvent(params *addEventRequest) (int32, error) {
 	event := Event{
 		Description:         params.Description,
 		IdStatus:            params.IdStatus,
-		DtReg:               params.DtReg,
 		Cancel:              params.Cancel,
 		Success:             params.Success,
 		Traffic:             params.Traffic,
@@ -72,7 +71,6 @@ func (repo *repository) UpdateEvent(params *updateEventRequest) (int32, error) {
 		ID:                  params.Id,
 		Description:         params.Description,
 		IdStatus:            params.IdStatus,
-		DtReg:               params.DtReg,
 		Cancel:              params.Cancel,
 		Success:             params.Success,
 		Traffic:             params.Traffic,

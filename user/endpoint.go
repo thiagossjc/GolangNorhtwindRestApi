@@ -5,7 +5,6 @@ import (
 
 	"github.com/GoGooliveryProviderAPI/helper"
 	"github.com/go-kit/kit/endpoint"
-	"github.com/golang/protobuf/ptypes/timestamp"
 )
 
 type getUserByIDRequest struct {
@@ -22,7 +21,7 @@ type addUserRequest struct {
 	Email     string
 	CelPhone  string
 	Country   string
-	DtReg     timestamp.Timestamp
+	DtReg     string
 	IdUser    int64
 	Cancel    bool
 	IdCancel  int64
@@ -38,7 +37,7 @@ type updateUserRequest struct {
 	Email     string
 	CelPhone  string
 	Country   string
-	DtReg     timestamp.Timestamp
+	DtReg     string
 	IdUser    int64
 	Cancel    bool
 	IdCancel  int64

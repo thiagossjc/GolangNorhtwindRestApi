@@ -1,6 +1,6 @@
 package request
 
-type RequestOrder struct {
+type CustomerRequest struct {
 	Id                 int64   `json:"id"`
 	IdCustomer         int64   `json:"idCustomer"`
 	Customer           string  `json:"customer"`
@@ -29,7 +29,12 @@ type RequestOrder struct {
 	Event              string  `json:"event"`
 }
 
-func (req RequestOrder) SumTotalPrice(priceWTax float32, tax float32, otherTax float32) float32 {
+func (req CustomerRequest) SumTotalPrice(priceWTax float32, tax float32, otherTax float32) float32 {
 	var total = priceWTax + tax + otherTax
 	return total
+}
+
+type CustomersRequestsList struct {
+	Data         []*CustomerRequest `json: "data"`
+	TotalRecords int64              `json: "total"`
 }

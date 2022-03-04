@@ -8,9 +8,9 @@ import (
 )
 
 type Repository interface {
-	GetRequestsOrders(params *getRequestsRequest) ([]*RequestOrder, error)
+	GetRequestsOrders(params *getRequestsRequest) ([]*CustomerRequest, error)
 	GetTotalRequestsOrders() (int64, error)
-	GetRequestOrderById(params *getRequestBYIDRequest) (*RequestOrder, error)
+	GetRequestOrderById(params *getRequestBYIDRequest) (*CustomerRequest, error)
 	InsertRequestOrder(params *addRequestOrderRequest) (int64, error)
 	UpdateRequestOrder(params *updateRequestOrderRequest) (int64, error)
 	CancelRequestOrder(params *cancelRequestOrderRequest) (int64, error)
@@ -25,7 +25,7 @@ func NewRepository(db *sql.DB) Repository {
 		db: db,
 	}
 }
-func (repo *repository) GetRequestsOrders(params *getRequestsRequest) ([]*RequestOrder, error) {
+func (repo *repository) GetRequestsOrders(params *getRequestsRequest) ([]*CustomerRequest, error) {
 	const sql = `SELECT
 	re.id,
 	re.id_customer as id_customer,
@@ -46,9 +46,9 @@ LIMIT ? OFFSET ?
 `
 	results, err := repo.db.Query(sql, params.Limit, params.Offset)
 	helper.Catch(err)
-	var requestsOrders []*RequestOrder
+	var requestsOrders []*CustomerRequest
 	for results.Next() {
-		reqOrder := &RequestOrder{}
+		reqOrder := &CustomerRequest{}
 		err = results.Scan(
 			&reqOrder.Id,
 			&reqOrder.IdCustomer,
@@ -77,7 +77,7 @@ func (repo *repository) GetTotalRequestsOrders() (int64, error) {
 	return total, nil
 }
 
-func (repo *repository) GetRequestOrderById(params *getRequestBYIDRequest) (*RequestOrder, error) {
+func (repo *repository) GetRequestOrderById(params *getRequestBYIDRequest) (*CustomerRequest, error) {
 	const sql = `SELECT re.id, 
 	re.id_customer,
 	ce.fantasy_name as customer,
@@ -113,7 +113,7 @@ func (repo *repository) GetRequestOrderById(params *getRequestBYIDRequest) (*Req
 				  re.id= ? and
 				  re.country= ?`
 	row := repo.db.QueryRow(sql, params.RequestID, params.Country)
-	requestOrder := &RequestOrder{}
+	requestOrder := &CustomerRequest{}
 	err := row.Scan(&requestOrder.Id,
 		&requestOrder.IdCustomer,
 		&requestOrder.Customer,

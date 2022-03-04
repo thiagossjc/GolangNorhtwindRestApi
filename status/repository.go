@@ -43,7 +43,8 @@ func (repo *repository) GetStatusById(params *getStatusByIDRequest) (*Status, er
 
 func (repo *repository) InsertStatu(params *addStatusRequest) (int32, error) {
 
-	status := Status{Description: params.Description,
+	status := Status{
+		Description:         params.Description,
 		UserReg:             params.UsereReg,
 		Success:             params.Success,
 		Traffic:             params.Traffic,
@@ -58,7 +59,6 @@ func (repo *repository) InsertStatu(params *addStatusRequest) (int32, error) {
 		IdCountry:           params.IdCountry,
 	}
 	result := repo.db.Create(&status)
-
 	helper.Catch(result.Error)
 	//id, _ := result.LastInsertId()
 	id := result.Statement.CurDestIndex

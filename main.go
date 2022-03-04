@@ -31,7 +31,7 @@ func main() {
 
 	databasePGGormConnection, err := database.InitDbPgGorm()
 	if err == nil {
-		fmt.Println("Conexão con el Banco de Dados PostgreSql ok!")
+		fmt.Println("Conexão con el Banco de Dados PostgreSql Gorm ok!")
 	} else {
 		fmt.Println(err)
 	}

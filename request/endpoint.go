@@ -65,98 +65,102 @@ type cancelRequestOrderRequest struct {
 	idEvent  int32
 }
 
-// @Summary Order By Id
-// @Tags Orders
+type cancelRequestDetailRequest struct {
+	RequestDetailId string
+}
+
+// @Summary Requests By Id
+// @Tags Requests
 // @Accept json
 // @Produce json
-// @Param id path int true "Order Id"
-// @Success 200 {object} order.OrderItem "ok"
-// @Router /orders{id} [get]
-func makeGetOrderByIdEndpoint(s Service) endpoint.Endpoint {
-	getOrderByIdEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
+// @Param id path int true "Requests Id"
+// @Success 200 {object} request.RequestOrder "ok"
+// @Router /requests{id} [get]
+func makeGetRequestByIdEndpoint(s Service) endpoint.Endpoint {
+	getRequestByIdEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(getRequestBYIDRequest)
 		result, err := s.GetRequestOrderById(&req)
 		helper.Catch(err)
 		return result, nil
 	}
-	return getOrderByIdEndPoint
+	return getRequestByIdEndPoint
 }
 
-// @Summary Lista de Ordenes
-// @Tags Orders
+// @Summary Lista de Requests
+// @Tags Requests
 // @Accept json
 // @Produce json
-// @Param request body order.getOrdersRequest true "User Data"
-// @Success 200 {object} order.OrderList "ok"
-// @Router /orders/paginated [post]
-func makeGetOrdersEndpoint(s Service) endpoint.Endpoint {
-	getOrdersEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
+// @Param request body request.getRequestsRequest true "User Data"
+// @Success 200 {object} request. "ok"
+// @Router /requests/paginated [post]
+func makeGetRequestsEndpoint(s Service) endpoint.Endpoint {
+	getRequestsEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(getRequestsRequest)
 		result, err := s.GetRequestsOrders(&req)
 		helper.Catch(err)
 		return result, nil
 	}
-	return getOrdersEndPoint
+	return getRequestsEndPoint
 }
 
-// @Summary Insertar Orden
-// @Tags Orders
+// @Summary Insertar Request
+// @Tags Requests
 // @Accept json
 // @Produce json
-// @Param request body order.addOrderRequest true "User data"
+// @Param request body request.addRequestOrderRequest true "User data"
 // @Success 200 {integer} int "ok"
-// @Router /orders/ [post]
+// @Router /requests/ [post]
 func makeAddOrderEndpoint(s Service) endpoint.Endpoint {
-	addOrderEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
+	addRequestEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(addRequestOrderRequest)
 		result, err := s.InsertRequestOrder(&req)
 		helper.Catch(err)
 		return result, nil
 	}
-	return addOrderEndPoint
+	return addRequestEndPoint
 }
 
-// @Summary Actualizar Orden
-// @Tags Orders
+// @Summary Actualizar Request
+// @Tags Requests
 // @Accept json
 // @Produce json
-// @Param request body order.addOrderRequest true "User data"
+// @Param request body request.addRequestRequest true "User data"
 // @Success 200 {integer} int "ok"
-// @Router /orders/ [put]
-func makeUpdateOrderEndpoint(s Service) endpoint.Endpoint {
-	updateOrderEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
+// @Router /requests/ [put]
+func makeUpdateRequestEndpoint(s Service) endpoint.Endpoint {
+	updateRequestEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(updateRequestOrderRequest)
 		result, err := s.UpdateRequestOrder(&req)
 		helper.Catch(err)
 		return result, nil
 	}
-	return updateOrderEndPoint
+	return updateRequestEndPoint
 }
 
-// @Summary Eliminar Detal de la Orden
-// @Tags Orders
+// @Summary Cancelar Detal de la Orden
+// @Tags Requests
 // @Accept json
 // @Produce json
 // @Param orderDetailId path int true "Order Detail ID"
 // @Success 200 {integer} int "ok"
 // @Router /orders/{orderId}/detail/{orderDetailId} [delete]
-func makeDeleteOrderDetailEndpoint(s Service) endpoint.Endpoint {
-	deleteOrderDetailEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
+func makeCancelOrderDetailEndpoint(s Service) endpoint.Endpoint {
+	cancelRequestDetailEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(cancelRequestOrderRequest)
-		result, err := s.DeleteOrderDetail(&req)
+		result, err := s.CancelRequestDetail(&req)
 		helper.Catch(err)
 		return result, nil
 	}
-	return deleteOrderDetailEndPoint
+	return cancelRequestDetailEndPoint
 }
 
-// @Summary Eliminar Orden
-// @Tags Orders
+// @Summary Cancelar Requisición
+// @Tags Requests
 // @Accept json
 // @Produce json
-// @Param id path int true "Order ID"
+// @Param id path int true "Request ID"
 // @Success 200 {integer} int "ok"
-// @Router /orders/{id} [delete]
+// @Router /requests/{id} [delete]
 func makeDeleteOrderEndpoint(s Service) endpoint.Endpoint {
 	deleteOrderEndPoint := func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(cancelRequestOrderRequest)

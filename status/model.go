@@ -4,7 +4,6 @@ type Status struct {
 	Id                  int32  `json:"id" gorm:"primary_key"`
 	Description         string `json:"description"`
 	UserReg             int64  `json:"userReg"`
-	DateReg             string `json:"dataReg"`
 	Cancel              bool   `json:"cancel"`
 	Success             bool   `json:"success"`
 	Traffic             bool   `json:"traffic"`

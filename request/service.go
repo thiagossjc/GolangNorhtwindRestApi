@@ -3,9 +3,9 @@ package request
 import "github.com/GoGooliveryProviderAPI/helper"
 
 type Service interface {
-	GetRequestsOrders(params *getRequestsRequest) ([]*RequestOrder, error)
+	GetRequestsOrders(params *getRequestsRequest) (*CustomersRequestsList, error)
 	//	GetTotalRequestsOrders() (int64, error)
-	GetRequestOrderById(params *getRequestBYIDRequest) (*RequestOrder, error)
+	GetRequestOrderById(params *getRequestBYIDRequest) (*CustomerRequest, error)
 	InsertRequestOrder(params *addRequestOrderRequest) (int64, error)
 	UpdateRequestOrder(params *updateRequestOrderRequest) (int64, error)
 	CancelRequestOrder(params *cancelRequestOrderRequest) (int64, error)
@@ -21,21 +21,16 @@ func NewService(repo Repository) Service {
 	}
 }
 
-func (s *service) GetRequestOrderById(params *getRequestBYIDRequest) (*RequestOrder, error) {
+func (s *service) GetRequestOrderById(params *getRequestBYIDRequest) (*CustomerRequest, error) {
 	return s.repo.GetRequestOrderById(params)
 }
 
-func (s *service) GetRequestsOrders(params *getRequestsRequest) ([]*RequestOrder, error) {
-	orders, err := s.repo.GetRequestsOrders(params)
+func (s *service) GetRequestsOrders(params *getRequestsRequest) (*CustomersRequestsList, error) {
+	customersRequests, err := s.repo.GetRequestsOrders(params)
 	helper.Catch(err)
-	totalOrders, err := s.repo.GetTotalRequestsOrders()
+	totalRequests, err := s.repo.GetTotalRequestsOrders()
 	helper.Catch(err)
-	//var list *OrderList
-	//list.Data = orders
-	//list.TotalRecords = totalOrders
-	//return list, err
-	//o se puede hacer asi con menos codigo
-	return &OrderList{Data: orders, TotalRecords: totalOrders}, nil
+	return &CustomersRequestsList{Data: customersRequests, TotalRecords: totalRequests}, nil
 }
 
 func (s *service) InsertRequestOrder(params *addRequestOrderRequest) (int64, error) {
